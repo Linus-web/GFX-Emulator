@@ -551,6 +551,22 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.h-\[100vh\] {
+  height: 100vh;
+}
+
+.h-\[50vh\] {
+  height: 50vh;
+}
+
+.w-\[100vw\] {
+  width: 100vw;
+}
+
+.w-\[50vw\] {
+  width: 50vw;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
