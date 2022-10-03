@@ -1,7 +1,3 @@
-
-
-
-
 export class Plane {
 width:number
 height:number
