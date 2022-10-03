@@ -1,15 +1,16 @@
 import { BITMAP } from "./BITMAP.js";
-
 export class Plane {
     constructor() {
-     
-        this.width = 300;
-        this.height = 300;
+        this.width = 10;
+        this.height = 10;
+        this.plane = new Array(this.height * this.width);
+
         this.lock = false;
         this.zoom = 1;
     }
-    putPixel(x, y, color) {
-        BITMAP.plane[x + y*BITMAP.width] = color;
+    putPixel(x, y, color ) {
+        this.plane[x + y*this.width] = color;
+        console.log(this.plane)
     }
     line(x1, y1, x2, y2, color) {
     }
