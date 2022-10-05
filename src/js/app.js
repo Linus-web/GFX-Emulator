@@ -12,7 +12,7 @@ function display(plane){
     for (let i = 0; i < plane.plane.length; i++) {
         
         if (plane.plane[i] != undefined) {
-            ctx.fillRect(((i%10)*(pixelWidth+1)),(Math.floor((i/10))*(pixelWidth+1)),pixelWidth,pixelWidth )
+            ctx.fillRect(((i%plane.width)*(pixelWidth+1)),(Math.floor((i/plane.width))*(pixelWidth+1)),pixelWidth,pixelWidth )
 
             
         }
@@ -35,14 +35,16 @@ function reScale(){
 
 
 
-function addpixel(){
-    firstLayerPlane.putPixel(b,b,255);
-    b++;
+// function addpixel(){
+//     firstLayerPlane.putPixel(b,b,255);
+//     b++;
 
-}
+// }
 
-addpixel()
-addpixel()
+// addpixel()
+// addpixel()
+
+firstLayerPlane.putPixel(9,9,255);
 
 setInterval(() => {
     reScale()

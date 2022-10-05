@@ -18,6 +18,9 @@ export class Plane {
     rectangle(x1, y1, x2, y2, color) {
     }
     clear(color) {
+        this.plane.forEach(element => {
+            element = undefined
+        });
     }
     resize(x, y) {
     }
