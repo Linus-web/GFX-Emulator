@@ -12,7 +12,7 @@ function display(plane){
     for (let i = 0; i < plane.plane.length; i++) {
         
         if (plane.plane[i] != undefined) {
-            ctx.fillRect(((i%plane.width)*(pixelWidth+1)),(Math.floor((i/plane.width))*(pixelWidth+1)),pixelWidth,pixelWidth )
+            ctx.fillRect(((i%plane.width)*(pixelWidth)),(Math.floor((i/plane.width))*(pixelWidth)),pixelWidth,pixelWidth )
 
             
         }
@@ -26,8 +26,8 @@ function display(plane){
 function reScale(){
 
         pixelWidth = canvas.offsetHeight / firstLayerPlane.width;
-        canvas.width = canvas.offsetHeight + firstLayerPlane.width
-        canvas.height = canvas.offsetHeight + firstLayerPlane.width
+        canvas.width = canvas.offsetHeight
+        canvas.height = canvas.offsetHeight 
 
         console.log(pixelWidth);
 
@@ -44,7 +44,7 @@ function reScale(){
 // addpixel()
 // addpixel()
 
-firstLayerPlane.putPixel(9,9,255);
+firstLayerPlane.line(0,0,80,90,255)
 
 setInterval(() => {
     reScale()
