@@ -4,7 +4,6 @@ export class Plane {
         this.width = 10;
         this.height = 10;
         this.plane = new Array(this.height * this.width);
-
         this.lock = false;
         this.zoom = 1;
     }
