@@ -4,7 +4,6 @@ export class Plane {
         this.width = 10;
         this.height = 10;
         this.plane = new Array(this.height * this.width);
-
         this.lock = false;
         this.zoom = 1;
     }
@@ -19,6 +18,9 @@ export class Plane {
     rectangle(x1, y1, x2, y2, color) {
     }
     clear(color) {
+        this.plane.forEach(element => {
+            element = undefined
+        });
     }
     resize(x, y) {
     }
