@@ -29,8 +29,6 @@ function reScale(){
         canvas.width = canvas.offsetHeight
         canvas.height = canvas.offsetHeight 
 
-        console.log(pixelWidth);
-
 }
 
 
@@ -44,7 +42,7 @@ function reScale(){
 // addpixel()
 // addpixel()
 
-firstLayerPlane.line(0,0,80,90,255)
+firstLayerPlane.line(0,0,764,310,255)
 
 setInterval(() => {
     reScale()
