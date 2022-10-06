@@ -1,8 +1,8 @@
 import { BITMAP } from "./BITMAP.js";
 export class Plane {
     constructor() {
-        this.width = 1000;
-        this.height = 1000;
+        this.width = 2000;
+        this.height = 2000;
         this.plane = new Array(this.height * this.width);
         this.lock = false;
         this.zoom = 1;
@@ -50,9 +50,40 @@ export class Plane {
         //     }
         // }
     }
-    circle(x, y, r, color) {
+    circle(x, y, r, color, accuracy) {
+        
+        //center of circle (x,y)
+        //range of circle is (r)
+        //accurancy = sin(angle)*r, and cos(angle)*r
+        //point of change is 2pi/accuracy
+        let pointofchange=((2*3.141592)/(accuracy))
+
+        for (let i = 0; i < accuracy; i++) {
+            let x1 =Math.ceil(x+r*Math.sin(pointofchange*i))
+             let y1 =  Math.ceil(y+r*Math.cos(pointofchange*i))
+             let x2 = Math.ceil(x+r*Math.sin(pointofchange*(i+1)))
+             let y2 = Math.ceil(y+r*Math.cos(pointofchange*(i+1)))
+            // this.putPixel(x1,y1,color)
+            // console.log("x coord: " + x1);
+            // console.log("y coord: " + y);
+            this.line(x1,y1,x2,y2,color)
+
+        }
+
     }
     rectangle(x1, y1, x2, y2, color) {
+        //four points to generate
+        //first point (x1,y1)
+        //second point (x2, y1)
+        //third point (x2,y2)
+        //fourth point (x1,y2)
+        this.line(x1,y1,x2,y1, color)
+        this.line(x2,y1,x2,y2,color)
+        this.line(x2,y2,x1,y2, color)
+        this.line(x1,y2,x1,y1, color)
+
+
+
     }
     clear(color) {
         this.plane.forEach(element => {
@@ -81,5 +112,12 @@ export class Plane {
     pScrollDown() {
     }
     triangle(x1, y1, x2, y2, x3, y3, color) {
+        this.line(x1,y1,x2,y2, color)
+        this.line(x2,y2,x3,y3, color)
+        this.line(x3,y3,x1,y1, color)
+
+
+
+
     }
 }
