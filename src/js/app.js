@@ -41,8 +41,8 @@ function reScale(){
 
 // addpixel()
 // addpixel()
-
-firstLayerPlane.line(0,0,764,310,255)
+firstLayerPlane.circle(1000,1000,900,255,1000)
+firstLayerPlane.line(0,0,2000,2000)
 
 setInterval(() => {
     reScale()
