@@ -46,7 +46,7 @@ export class Plane {
         }
 
     }
-    rectangle(x1, y1, x2, y2, color) {
+    rectangle(x1, y1, x2, y2, color, fill) {
         //four points to generate
         //first point (x1,y1)
         //second point (x2, y1)
@@ -56,7 +56,17 @@ export class Plane {
         this.line(x2,y1,x2,y2,color)
         this.line(x2,y2,x1,y2, color)
         this.line(x1,y2,x1,y1, color)
-
+       if (fill == true) {
+        let LengthY = y2-y1;
+        for (let i = x1; i < x2; i++) {
+        for (let k = 0; k < LengthY; k++) {
+          this.putPixel(i,y1+k,color)
+            
+        }
+        }
+        
+       }
+       
 
 
     }
