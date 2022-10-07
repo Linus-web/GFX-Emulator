@@ -1,12 +1,10 @@
 
 import {BITMAP} from "./BITMAP.js"
 import {Plane} from "./PlaneClass.js"
-let b= 0;
-let zoom = 1;
 let pixelWidth
 let firstLayerPlane = new Plane();
-var canvas = document.getElementById("canvas")
-var ctx = canvas.getContext("2d")
+const canvas = document.getElementById("canvas")
+const ctx = canvas.getContext("2d")
 function display(plane){
 
     for (let i = 0; i < plane.plane.length; i++) {
@@ -23,26 +21,16 @@ function display(plane){
 
 }
 
-function reScale(){
-
+function reScale(){ 
         pixelWidth = canvas.offsetHeight / firstLayerPlane.width;
         canvas.width = canvas.offsetHeight
         canvas.height = canvas.offsetHeight 
-
 }
 
+firstLayerPlane.circle(19,19,10,255,16)
+firstLayerPlane.line(0,0,39,39)
+firstLayerPlane.triangle(20,0,39,39,0,39)
 
-
-// function addpixel(){
-//     firstLayerPlane.putPixel(b,b,255);
-//     b++;
-
-// }
-
-// addpixel()
-// addpixel()
-firstLayerPlane.circle(1000,1000,900,255,1000)
-firstLayerPlane.line(0,0,2000,2000)
 
 setInterval(() => {
     reScale()

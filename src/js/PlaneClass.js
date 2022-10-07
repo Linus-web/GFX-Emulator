@@ -1,14 +1,13 @@
 import { BITMAP } from "./BITMAP.js";
 export class Plane {
     constructor() {
-        this.width = 2000;
-        this.height = 2000;
+        this.width = 40;
+        this.height = 40;
         this.plane = new Array(this.height * this.width);
         this.lock = false;
-        this.zoom = 1;
     }
     putPixel(x, y, color ) {
-        this.plane[x + y*this.width] = color;
+        this.plane[x + y*this.width] = color;   
     }
     line(x1, y1, x2, y2, color) {
             var dx = Math.abs(x2 - x1);
@@ -25,30 +24,6 @@ export class Plane {
                if (e2 > -dy) { err -= dy; x1  += sx; }
                if (e2 < dx) { err += dx; y1  += sy; }
             }
-        // let distance
-
-        // if(x2-x1 > y2-y1){
-        //     distance = x2
-        // }else{
-        //     distance = y2
-        // }
-
-        // // let k = ((y2-y1)/(x2-x1))
-        // let k = 1.25
-        // let step = 0
-        // let count = 0
-        // this.plane[x1+y1*this.width] = color
-        // this.plane[x2+y2*this.width] = color    
-        // console.log(k);
-        // for (let i = x1; i < distance; i++) {
-            
-        //     this.plane[x1+i*this.width+step] = color
-        //     count ++
-        //     if(count >= k){
-        //         step++
-        //         count = 0
-        //     }
-        // }
     }
     circle(x, y, r, color, accuracy) {
         
