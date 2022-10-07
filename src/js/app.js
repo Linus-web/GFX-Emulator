@@ -33,14 +33,8 @@ function reScale() {
 }
 
 
-firstLayerPlane.line(0, 0, 39, 0);
-firstLayerPlane.line(0, 1, 39, 1);
-/*firstLayerPlane.line(0, 2, 39, 2);
-firstLayerPlane.line(0, 3, 39, 3);*/
-firstLayerPlane.line(0, 4, 39, 4);
-firstLayerPlane.line(0, 5, 39, 5);
-//firstLayerPlane.line(0, 6, 39, 6);
-firstLayerPlane.line(0, 39, 39, 39); 
+firstLayerPlane.circle(19,19,10,255,14)
+
 setInterval(() => {
   reScale();
   display(firstLayerPlane);
