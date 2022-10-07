@@ -18,7 +18,7 @@ export class Plane {
     var err = dx - dy;
  
     while(true) {
-       this.putPixel(x1, y1,254); // Do what you need to for this
+       this.putPixel(x1, y1,color); // Do what you need to for this
  
        if ((x1 === x2) && (y1 === y2)) break;
        var e2 = 2*err;
@@ -49,21 +49,12 @@ export class Plane {
       // this.putPixel(x1,y1,color)
       this.line(x1, y1, x2, y2, color);
     }
+    console.log(this.plane)
+    
   }
 
-  rectangle(x1, y1, x2, y2, color) {
-    //four points to generate
-    //first point (x1,y1)
-    //second point (x2, y1)
-    //third point (x2,y2)
-    //fourth point (x1,y2)
-    this.line(x1, y1, x2, y1, color);
-    this.line(x2, y1, x2, y2, color);
-    this.line(x2, y2, x1, y2, color);
-    this.line(x1, y2, x1, y1, color);
-  }
 
-  rectangleFill(x1, y1, x2, y2, color, fill) {
+  rectangle(x1, y1, x2, y2, color, fill) {
     //four points to generate
     //first point (x1,y1)
     //second point (x2, y1)
@@ -104,7 +95,6 @@ export class Plane {
         else this.plane[i + y * this.height] = undefined;
       }
     }
-    console.table(this.plane);
   }
   scrollRight() {
     for (let y = 0; y < this.height; y++) {
@@ -125,12 +115,11 @@ export class Plane {
   scrollDown() {
     for (let y = this.height - 1; y >= 0; y--) {
       for (let i = 0; i < this.width; i++) {
-        if (y == 39) this.plane[i + y * this.width] = undefined;
-        else
-          this.plane[i + y * this.width] = this.plane[i + y * this.width - 40];
+        this.plane[i + y * this.width] = this.plane[i + y * this.width - 40];
       }
     }
   }
+
   pScrollLeft() {}
   pScrollRight() {}
   pScrollUp() {}

@@ -1,10 +1,9 @@
 import { BITMAP } from "./BITMAP.js";
 import { Plane } from "./PlaneClass.js";
 let pixelWidth;
-let firstLayerPlane = new Plane();
+let plane = new Plane();
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 const btnUp = document.getElementById("up")
 const btnDown = document.getElementById("down")
 const btnLeft = document.getElementById("left")
@@ -13,10 +12,16 @@ const btnPUp = document.getElementById("Pup")
 const btnPDown = document.getElementById("Pdown")
 const btnPLeft = document.getElementById("pPleft")
 const btnPRight = document.getElementById("Pright")
-function display(plane) {
+
+const inputC = document.getElementById("inputC")
+
+console.log(inputC.value)
+
+function display() {
   for (let i = 0; i < plane.plane.length; i++) {
     if (plane.plane[i] != undefined) {
-      ctx.fillRect(
+    ctx.fillStyle = plane.plane[i]
+    ctx.fillRect(
         (i % plane.width) * pixelWidth,
         Math.floor(i / plane.width) * pixelWidth,
         pixelWidth,
@@ -27,32 +32,35 @@ function display(plane) {
 }
 
 function reScale() {
-  pixelWidth = canvas.offsetHeight / firstLayerPlane.width;
+  pixelWidth = canvas.offsetHeight / plane.width;
   canvas.width = canvas.offsetHeight;
   canvas.height = canvas.offsetHeight;
 }
 
 
-firstLayerPlane.circle(19,19,10,255,14)
+
+plane.circle(19,19,10,inputC.value,15)
+
+plane.rectangle(2,2,10,10,inputC.value,true)
 
 setInterval(() => {
   reScale();
-  display(firstLayerPlane);
+  display();
 }, 50);
 
 
 
 btnLeft.addEventListener("click", () =>{
-    firstLayerPlane.scrollLeft()
+    plane.scrollLeft()
 } )
 
 btnRight.addEventListener("click", () => {
-    firstLayerPlane.scrollRight()
+    plane.scrollRight()
 })
 
 btnUp.addEventListener("click", () => {
-    firstLayerPlane.scrollUp()
+    plane.scrollUp()
 })
 btnDown.addEventListener("click", () => {
-    firstLayerPlane.scrollDown()
+    plane.scrollDown()
 })
