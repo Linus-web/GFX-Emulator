@@ -27,9 +27,7 @@ function reScale(){
         canvas.height = canvas.offsetHeight 
 }
 
-firstLayerPlane.circle(19,19,10,255,16)
-firstLayerPlane.line(0,0,39,39)
-firstLayerPlane.triangle(20,0,39,39,0,39)
+firstLayerPlane.rectangle(10,10,30,30,255,true)
 
 
 setInterval(() => {
