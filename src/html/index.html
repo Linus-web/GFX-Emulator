@@ -15,15 +15,23 @@
 
     <div class="flex items-center flex-col-reverse w-full h-full bg-slate-100 md:flex-row ">
 
-        <div class="w-1/2 h-[50%] md:h-full flex justify-center items-center flex-col">
+        <div class="md:w-1/2 w-full h-[50%] md:h-full flex justify-center items-center flex-col">
 
-            <div class="flex h-2/3 w-full">
-
-
+            <div class="flex h-2/3 w-[90%] justify-center items-center flex-wrap">
+                <div class="w-1/2">
+                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Put pixel</button>
+                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Line</button>
+                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Circle</button>
+                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Rectangle</button>
+                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Triangle</button>
+                </div>
+                <div class="w-1/2">
+                    <input type="color">
+                </div>
             </div>
 
 
-            <div class="flex h-1/3 w-full justify-center items-center pb-[5%]">
+            <div class="flex h-1/3 max-h-[200px] w-full justify-center items-center pb-[5%]">
 
            
             <div class="flex flex-col justify-center items-center text-3xl aspect-square p-5 w-1/3 bg-white rounded-full overflow-clip mr-5 shadow-md ">
@@ -78,9 +86,9 @@
 
         </div>
 
-        <div class="flex justify-center items-center w-[100%] md:w-[60%] h-[50%] md:h-[100%] p-10 bg-slate-100 shadow-[-5px_0_20px_20px_rgba(0,0,0,0.1)]">
+        <div class="flex justify-center items-center w-[100%] md:w-[50%] h-fit md:h-full p-10 bg-slate-100 shadow-[-5px_0_20px_20px_rgba(0,0,0,0.1)]">
             
-            <canvas id="canvas" width="" height="" class="w-[95%] aspect-square bg-white"> </canvas>
+            <canvas id="canvas" width="" height="" class=" maxlg:w-[70%] lg:h-[80%] aspect-square bg-white"> </canvas>
 
         </div>
        
