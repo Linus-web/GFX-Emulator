@@ -6,35 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/output.css">
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="../css/favicon/favicon.ico" type="image/x-icon">
 
-    <title>GFX Sim</title>
+    <title>GFX Emulator</title>
 </head>
-<body class="w-[100%] h-[100vh] m-0 p-0">
+<body class="w-[100%] h-[100vh] maxmd:min-h-[900px] m-0 p-0">
     
 
 
-    <div class="flex items-center flex-col-reverse w-full h-full bg-slate-100 md:flex-row ">
+    <div class="flex items-center maxsm:items-start flex-col-reverse w-full h-full bg-slate-100 md:flex-row ">
 
         <div class="md:w-1/2 w-full h-[50%] md:h-full flex justify-center items-center flex-col">
 
             <div class="flex h-2/3 w-[90%] justify-center items-center flex-wrap">
-                <div class="w-1/2">
-                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Put pixel</button>
-                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Line</button>
-                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Circle</button>
-                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Rectangle</button>
-                    <button class="border-2 w-[30%] m-3 aspect-video border-slate-200 rounded shadow-lg bg-slate-100">Triangle</button>
+                <div class="w-1/2 h-[70%] flex items-center justify-center flex-wrap">
+                    <button class="flex items-center justify-center font-semibold p-2 border-2 w-[30%] min-w-fit m-5 maxmd:m-2 aspect-video border-slate-200 rounded shadow-lg bg-slate-100"><span>Draw</span> </button>
+                    <button class="flex items-center justify-center font-semibold p-2 border-2 w-[30%] min-w-fit m-5 maxmd:m-2 aspect-video border-slate-200 rounded shadow-lg bg-slate-100"><span>Line</span> </button>
+                    <button class="flex items-center justify-center font-semibold p-2 border-2 w-[30%] min-w-fit m-5 maxmd:m-2 aspect-video border-slate-200 rounded shadow-lg bg-slate-100"><span>Circle</span> </button>
+                    <button class="flex items-center justify-center font-semibold p-2 border-2 w-[30%] min-w-fit m-5 maxmd:m-2 aspect-video border-slate-200 rounded shadow-lg bg-slate-100"><span>Rectangle</span> </button>
+                    <button class="flex items-center justify-center font-semibold p-2 border-2 w-[30%] min-w-fit m-5 maxmd:m-2 aspect-video border-slate-200 rounded shadow-lg bg-slate-100"><span>Triangle</span> </button>
+                   
+
                 </div>
-                <div class="w-1/2">
-                    <input type="color">
+                <div class="w-1/2 h-[60%] flex flex-col justify-start items-start">
+                    <div class="flex justify-start items-start w-full h-2/3">
+                        <span class="mt-5 text-xl font-semibold">Choose color:</span>
+                        <button class="border-2 w-[50%] m-5 aspect-square border-slate-200 rounded shadow-lg bg-slate-100"><input class="w-full h-full" value="#777777" type="color"></button>
+                       
+                    </div>
+                    <!--<div class="flex w-1/2 justify-center items-center self-center mt-5">
+                        <div class="flex flex-col m-4 w-1/3"> 
+                            <input type="text" name="" id="" placeholder="x1">
+                            <input type="text" name="" id="" placeholder="y1">
+                        </div>
+                        <div class="flex flex-col m-4 w-1/3" >
+                            <input type="text" name="" id="" placeholder="x2">
+                            <input type="text" name="" id="" placeholder="y2">
+                        </div>
+                        <div class="flex flex-col m-4 w-1/3">
+                            <input type="text" name="" id="" placeholder="x3">
+                            <input type="text" name="" id="" placeholder="y3">
+                        </div>
+                    </div>
+                -->
                 </div>
             </div>
 
 
-            <div class="flex h-1/3 max-h-[200px] w-full justify-center items-center pb-[5%]">
+            <div class="flex h-1/3 max-h-[200px] w-full justify-center items-center">
 
            
-            <div class="flex flex-col justify-center items-center text-3xl aspect-square p-5 w-1/3 bg-white rounded-full overflow-clip mr-5 shadow-md ">
+            <div class="flex flex-col justify-center items-center text-3xl aspect-square p-5 h-full bg-white rounded-full overflow-clip mr-5 shadow-md ">
+                
                 <div class="aspect-square w-1/3">
                     <button id="up" class="aspect-square w-full bg-slate-100 rounded shadow-md shadow-[rgba(0,0,0,0.2)]"> <i class="fas fa-angle-double-up	"></i></button>
                 </div>
@@ -58,7 +81,7 @@
                 </div>
 
             </div>
-            <div class="flex flex-col justify-center items-center text-3xl aspect-square p-5 w-1/3 bg-white rounded-full overflow-clip shadow-md">
+            <div class="flex flex-col justify-center items-center text-3xl aspect-square p-5  h-full bg-white rounded-full overflow-clip shadow-md">
                 <div class="aspect-square w-1/3">
                     <button id="up" class="aspect-square w-full bg-slate-100 rounded shadow-md shadow-[rgba(0,0,0,0.2)]"> <i class="fas fa-angle-double-up	"></i></button>
                 </div>
@@ -87,8 +110,9 @@
         </div>
 
         <div class="flex justify-center items-center w-[100%] md:w-[50%] h-fit md:h-full p-10 bg-slate-100 shadow-[-5px_0_20px_20px_rgba(0,0,0,0.1)]">
-            
-            <canvas id="canvas" width="" height="" class=" maxlg:w-[70%] lg:h-[80%] aspect-square bg-white"> </canvas>
+            <div class=" maxlg:w-[70%] lg:h-[80%] aspect-square bg-white cursor-pointer shadow-2xl">
+                <canvas id="canvas" width="" height="" class="w-full h-full"> </canvas>
+            </div>
 
         </div>
        
