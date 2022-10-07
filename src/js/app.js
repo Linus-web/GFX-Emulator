@@ -32,6 +32,7 @@ function reScale() {
   canvas.height = canvas.offsetHeight;
 }
 
+
 firstLayerPlane.line(0, 0, 39, 0);
 firstLayerPlane.line(0, 1, 39, 1);
 /*firstLayerPlane.line(0, 2, 39, 2);
@@ -44,6 +45,7 @@ setInterval(() => {
   reScale();
   display(firstLayerPlane);
 }, 50);
+
 
 
 btnLeft.addEventListener("click", () =>{
