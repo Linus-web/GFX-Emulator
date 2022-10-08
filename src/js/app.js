@@ -10,9 +10,8 @@ const btnLeft = document.getElementById("left")
 const btnRight = document.getElementById("right")
 const btnPUp = document.getElementById("Pup")
 const btnPDown = document.getElementById("Pdown")
-const btnPLeft = document.getElementById("pPleft")
+const btnPLeft = document.getElementById("Pleft")
 const btnPRight = document.getElementById("Pright")
-
 const inputC = document.getElementById("inputC")
 
 console.log(inputC.value)
@@ -39,7 +38,7 @@ function reScale() {
 
 
 
-plane.circle(19,19,10,inputC.value,15)
+plane.circle(250,250,200,inputC.value,1000)
 
 plane.rectangle(2,2,10,10,inputC.value,true)
 
@@ -48,19 +47,45 @@ setInterval(() => {
   display();
 }, 50);
 
-
-
 btnLeft.addEventListener("click", () =>{
     plane.scrollLeft()
+    plane.lock =false
 } )
 
 btnRight.addEventListener("click", () => {
     plane.scrollRight()
+    plane.lock =false
 })
 
 btnUp.addEventListener("click", () => {
     plane.scrollUp()
+    plane.lock =false
 })
 btnDown.addEventListener("click", () => {
     plane.scrollDown()
+    plane.lock =false
 })
+
+btnPLeft.addEventListener("click", () =>{
+    plane.pScrollLeft()
+    plane.lock =false
+} )
+
+btnPRight.addEventListener("click", () =>{
+    plane.pScrollRight()
+    plane.lock =false
+} )
+
+btnPUp.addEventListener("click", () =>{
+    plane.pScrollUp()
+    plane.lock =false
+} )
+
+btnPDown.addEventListener("click", () =>{
+    plane.pScrollDown()
+    plane.lock =false
+} )
+
+
+
+

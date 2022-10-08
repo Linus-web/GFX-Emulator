@@ -1,10 +1,10 @@
 import { BITMAP } from "./BITMAP.js";
 export class Plane {
   constructor() {
-    this.width = 40;
+    this.width = 500;
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
-    this.lock = false;
+    this.lock = true;
   }
   putPixel(x, y, color) {
     this.plane[x + y * this.width] = color;
@@ -13,20 +13,25 @@ export class Plane {
   line(x1, y1, x2, y2, color) {
     var dx = Math.abs(x2 - x1);
     var dy = Math.abs(y2 - y1);
-    var sx = (x1 < x2) ? 1 : -1;
-    var sy = (y1 < y2) ? 1 : -1;
+    var sx = x1 < x2 ? 1 : -1;
+    var sy = y1 < y2 ? 1 : -1;
     var err = dx - dy;
- 
-    while(true) {
-       this.putPixel(x1, y1,color); // Do what you need to for this
- 
-       if ((x1 === x2) && (y1 === y2)) break;
-       var e2 = 2*err;
-       if (e2 > -dy) { err -= dy; x1  += sx; }
-       if (e2 < dx) { err += dx; y1  += sy; }
+
+    while (true) {
+      this.putPixel(x1, y1, color); // Do what you need to for this
+
+      if (x1 === x2 && y1 === y2) break;
+      var e2 = 2 * err;
+      if (e2 > -dy) {
+        err -= dy;
+        x1 += sx;
+      }
+      if (e2 < dx) {
+        err += dx;
+        y1 += sy;
+      }
     }
-}
-  
+  }
 
   clear(color) {
     this.plane.forEach((element) => {
@@ -49,10 +54,8 @@ export class Plane {
       // this.putPixel(x1,y1,color)
       this.line(x1, y1, x2, y2, color);
     }
-    console.log(this.plane)
-    
+    console.log(this.plane);
   }
-
 
   rectangle(x1, y1, x2, y2, color, fill) {
     //four points to generate
@@ -79,9 +82,9 @@ export class Plane {
       element = color;
     });
   }
-  resize(x, y) {
-    this.width = x;
-    this.height = y;
+  resize(size) {
+    this.width = size;
+    this.height = size;
     this.plane = [this.width * this.height];
   }
 
@@ -89,7 +92,7 @@ export class Plane {
 
   scrollLeft() {
     for (let y = 0; y < this.height; y++) {
-      for (let i = 0; i < this.plane.length / this.width; i++) {
+      for (let i = 0; i < this.width; i++) {
         if (i < this.width - 1)
           this.plane[i + y * this.height] = this.plane[i + y * this.height + 1];
         else this.plane[i + y * this.height] = undefined;
@@ -98,7 +101,7 @@ export class Plane {
   }
   scrollRight() {
     for (let y = 0; y < this.height; y++) {
-      for (let i = this.plane.length / this.width - 1; i >= 0; i--) {
+      for (let i = this.width - 1; i >= 0; i--) {
         if (i != 0)
           this.plane[i + y * this.height] = this.plane[i + y * this.height - 1];
         else this.plane[i + y * this.height] = undefined;
@@ -115,15 +118,67 @@ export class Plane {
   scrollDown() {
     for (let y = this.height - 1; y >= 0; y--) {
       for (let i = 0; i < this.width; i++) {
-        this.plane[i + y * this.width] = this.plane[i + y * this.width - 40];
+        this.plane[i + y * this.width] = this.plane[i + y * this.width - this.width];
       }
     }
   }
 
-  pScrollLeft() {}
-  pScrollRight() {}
-  pScrollUp() {}
-  pScrollDown() {}
+  pScrollLeft() {
+    let tempArr = [];
+    for (let i = 0; i < this.width; i++) {
+      tempArr[i] = this.plane[i * this.height];
+    }
+    for (let y = 0; y < this.height; y++) {
+      for (let i = 0; i < this.width; i++) {
+        if (i < this.width - 1)
+          this.plane[i + y * this.height] = this.plane[i + y * this.height + 1];
+        else this.plane[i + y * this.height] = undefined;
+      }
+    }
+    for (let i = 0; i < this.height; i++) {
+      this.plane[i * this.width + (this.width - 1)] = tempArr[i];
+    }
+  }
+  pScrollRight() {
+    let tempArr = [];
+    for (let i = 0; i < this.width; i++) {
+      tempArr[i] = this.plane[i * this.height + (this.width - 1)];
+    }
+    for (let y = 0; y < this.height; y++) {
+      for (let i = this.width - 1; i >= 0; i--) {
+        if (i != 0)
+          this.plane[i + y * this.height] = this.plane[i + y * this.height - 1];
+        else this.plane[i + y * this.height] = undefined;
+      }
+    }
+    for (let i = 0; i < this.height; i++) {
+      this.plane[i * this.width] = tempArr[i];
+    }
+  }
+
+  pScrollUp() {
+    let tempArr = [];
+
+    for (let i = 0; i < this.width; i++) tempArr[i] = this.plane[i];
+    for (let y = 0; y < this.height; y++) {
+      for (let i = 0; i < this.width; i++)
+        this.plane[i + y * this.width] =
+          this.plane[i + y * this.width + this.height];
+    }
+    for (let i = 0; i < this.width; i++)
+      this.plane[this.width ** 2 - 1 - i] = tempArr[this.width - 1 - i];
+  }
+  pScrollDown() {
+    let tempArr = [];
+    for (let i = 0; i < this.width; i++)
+      tempArr[this.width - 1 - i] = this.plane[this.width ** 2 - 1 - i];
+    for (let y = this.height - 1; y >= 0; y--) {
+      for (let i = 0; i < this.width; i++) {
+        this.plane[i + y * this.width] = this.plane[i + y * this.width - this.width];
+      }
+    }
+    for (let i = 0; i < this.width; i++) this.plane[i] = tempArr[i];
+  }
 
   triangle(x1, y1, x2, y2, x3, y3, color) {
     this.line(x1, y1, x2, y2, color);
