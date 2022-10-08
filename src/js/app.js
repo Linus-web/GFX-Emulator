@@ -41,7 +41,7 @@ function reScale() {
 
 
 
-plane.circle(250,250,200,inputC.value,1000)
+plane.circle(25,25,20,inputC.value,1000,true)
 
 plane.rectangle(2,2,10,10,inputC.value,true)
 
