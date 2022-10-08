@@ -2,7 +2,7 @@ import { BITMAP } from "./BITMAP.js";
 export class Plane {
   constructor() {
 
-    this.width = 400;
+    this.width = 40;
 
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
