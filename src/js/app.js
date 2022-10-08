@@ -35,6 +35,7 @@ function reScale() {
 
 
 
+
 plane.line(100,100,300,300,inputC.value)
 plane.line(140,100,300,260,inputC.value)
 plane.line(180,100,300,220,inputC.value)
@@ -42,6 +43,7 @@ plane.line(220,100,300,180,inputC.value)
 plane.line(100,140,260,300,inputC.value)
 plane.line(100,180,220,300,inputC.value)
 plane.line(100,220,180,300,inputC.value)
+
 
 
 setInterval(() => {
