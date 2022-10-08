@@ -125,9 +125,73 @@ export class Plane {
   pScrollUp() {}
   pScrollDown() {}
 
-  triangle(x1, y1, x2, y2, x3, y3, color) {
+  triangle(x1, y1, x2, y2, x3, y3, color,fill) {
     this.line(x1, y1, x2, y2, color);
     this.line(x2, y2, x3, y3, color);
     this.line(x3, y3, x1, y1, color);
+
+    if (fill == true) {
+        let c1x = x1;
+        let c1y = y1;
+        for (let i = 0; i < this.width*2000; i++) {
+            let x = 3;
+            
+            let direction = Math.floor(Math.random()*3+1)
+
+            switch (direction) {
+                case 1:
+                    c1x +=Math.round(((x1-c1x)/x));
+                    c1y +=Math.round(((y1-c1y)/x));
+                    this.putPixel(c1x,c1y,color)
+                    console.log(c1x +","+c1y)
+                    
+                break;
+            
+                case 2:
+                    c1x +=Math.round(((x2-c1x)/x));
+                    c1y +=Math.round(((y2-c1y)/x));
+                    this.putPixel(c1x,c1y,color)
+                    
+                break;
+
+                case 3:
+                    c1x +=Math.round(((x3-c1x)/x));
+                    c1y +=Math.round(((y3-c1y)/x));
+                    this.putPixel(c1x,c1y,color)
+                    
+                break;
+            
+            }
+          }
+      
+    }
   }
+
+
+ 
+
+  arc(x, y, r,angleDeg, color, accuracy,vo){
+
+    let Offset= vo*(3.141592/180)
+    console.log(Offset)
+    let Rads= angleDeg*(3.141592/180)
+
+    let pointofchange = Rads / accuracy;
+
+    for (let i = 0; i < accuracy; i++) {
+      let x1 = Math.ceil(x + r * Math.sin(pointofchange * i + Offset));
+      let y1 = Math.ceil(y + r * Math.cos(pointofchange * i + Offset));
+      let x2 = Math.ceil(x + r * Math.sin(pointofchange * (i + 1)+ Offset));//next point  in question
+      let y2 = Math.ceil(y + r * Math.cos(pointofchange * (i + 1)+ Offset));
+      // this.putPixel(x1,y1,color)
+      this.line(x1, y1, x2, y2, color);
+    }
+    console.log(this.plane)
+    
+
+  }
+
+
+
+
 }
