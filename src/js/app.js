@@ -1,5 +1,7 @@
 import { BITMAP } from "./BITMAP.js";
 import { Plane } from "./PlaneClass.js";
+
+//DONT USE FILL FUNCTION ON TRIANGLE; IT IS MERELY THERE FOR SHOWCASE
 let pixelWidth;
 let plane = new Plane();
 const canvas = document.getElementById("canvas");
@@ -38,9 +40,11 @@ function reScale() {
 
 
 
+
 plane.circle(250,250,200,inputC.value,1000)
 
 plane.rectangle(2,2,10,10,inputC.value,true)
+
 
 setInterval(() => {
   reScale();
