@@ -1,7 +1,7 @@
 import { BITMAP } from "./BITMAP.js";
 export class Plane {
   constructor() {
-    this.width = 500;
+    this.width = 400;
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
     this.lock = true;
@@ -78,9 +78,9 @@ export class Plane {
   }
 
   clear(color) {
-    this.plane.forEach((element) => {
-      element = color;
-    });
+    for (let i = 0; i < this.plane.length; i++) {
+      this.plane[i] = color
+    }
   }
   resize(size) {
     this.width = size;

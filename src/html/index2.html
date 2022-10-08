@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/output.css" />
+    
+    <script src="https://kit.fontawesome.com/9013565c52.js" crossorigin="anonymous"></script>
+    <link
+      rel="shortcut icon"
+      href="../css/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+
+    <title>GFX Emulator</title>
+  </head>
+  <body class="w-full h-[100vh] flex">
+
+        <div class="text-white static flex flex-col bg-slate-800 w-12 h-full items-center justify-center space-y-2">
+                <button class="w-[70%]  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    <i class="fa-solid fa-crop-simple"></i>
+                </button>
+                <button id="draw" class="w-[70%]  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="w-[70%] font-extrabold text-xl  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    /
+                </button>
+                <button class="w-[70%]  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    <i class="fa-regular fa-circle"></i>
+                </button>
+                <button class="w-[70%]  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    <i class="fa-solid fa-circle"></i>
+                </button>
+                <button class="w-[70%]  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    <i class="fa-regular fa-square"></i>
+                </button>
+                <button class="w-[70%]  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    <i class="fa-solid fa-square"></i>
+                </button>
+                <button class="w-[70%] font-extrabold text-xl  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    &#x25B3
+                </button>
+                <button class="w-[70%] font-extrabold text-xl  aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    &#x25B2
+                </button>
+                <button class="w-[70%] font-extrabold text-xl aspect-square bg-slate-600 border-2 border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500 hover:bg-slate-500">
+                    T
+                </button>
+        </div>
+        
+        <div class="h-full w-[30vw] bg-slate-600 flex items-center flex-col relative">
+            <div class="absolute left-[100%] top-[10%] w-[20%] aspect-square bg-slate-600 rounded-r-md flex flex-col justify-center items-center">
+               <input type="color" class="h-[85%] w-[85%] mt-4" value="#ff8c77"  name="" id="inputC">
+               <div class="flex h-[15%] w-[85%] m-2 justify-center items-center">
+                <button class="h-[95%] aspect-square bg-blue-200 m-auto"></button>
+                <button class="h-[95%] aspect-square bg-blue-200 m-auto"></button>
+                <button class="h-[95%] aspect-square bg-blue-200 m-auto"></button>
+                <button class="h-[95%] aspect-square bg-blue-200 m-auto"></button>
+                <button class="h-[95%] aspect-square bg-blue-200 m-auto"></button>
+               </div>
+            </div>
+
+            <div class="h-2/4 w-full p-10">
+                <div class="flex flex-col w-full h-full border-2">
+
+                   
+                    
+                </div>
+            </div>
+
+            <div class="h-2/4 w-full flex items-center justify-center ">
+                <div
+            class="flex flex-col justify-center items-center text-3xl aspect-square p-5 h-2/3 bg-slate-400 rounded-full overflow-clip shadow-md min-h-[165px] max-h-[250px]"
+          >
+            <div class="aspect-square w-1/3 min-w-fit">
+              <button
+                id="up"
+                class="aspect-square w-full bg-slate-100 rounded shadow-md shadow-[rgba(0,0,0,0.2)]"
+              >
+                <i class="fas fa-angle-double-up"></i>
+              </button>
+            </div>
+
+            <div class="flex w-full justify-center items-center">
+              <div class="aspect-square w-1/3 rounded min-w-fit">
+                <button
+                  id="left"
+                  class="aspect-square w-full  bg-slate-100 rounded shadow-md shadow-[rgba(0,0,0,0.2)]"
+                >
+                  <i class="fas fa-angle-double-left"></i>
+                </button>
+              </div>
+              <div class="aspect-square w-1/3 m-1 rounded min-w-fit">
+                <button
+                  id="play"
+                  class="aspect-square w-full bg-slate-100 rounded shadow-md shadow-[rgba(0,0,0,0.2)]"
+                >
+                  <i class="fas fa-pause"> </i>
+                </button>
+              </div>
+              <div class="aspect-square w-1/3 rounded min-w-fit">
+                <button
+                  id="right"
+                  class="aspect-square w-full bg-slate-100 rounded shadow-md shadow-[rgba(0,0,0,0.2)]"
+                >
+                  <i class="fas fa-angle-double-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="aspect-square w-1/3 rounded min-w-fit">
+              <button
+                id="down"
+                class="aspect-square w-full  bg-slate-100 rounded shadow-md shadow-[rgba(0,0,0,0.2)]"
+              >
+                <i class="fas fa-angle-double-down"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col ml-[10%] text-xl">
+            <div class="flex justify-end">
+                <span>auto</span>
+                <input class="ml-2" type="checkbox" name="" id="checkA">
+            </div>
+            
+            <div class="flex">
+                <span>preserve</span>
+                <input class="ml-2" type="checkbox" name="" id="checkP">
+            </div>
+            <button id="clear" class="text-2xl font-medium rounded w-[100%] p-4 bg-slate-400 mt-[100%] border-4  border-l-slate-700 border-b-slate-500 border-t-slate-700 border-r-slate-500">
+                Clear
+            </button>
+          </div>
+
+        </div>
+        </div>
+
+
+        
+        <div class="flex-1 w-full h-full bg-slate-400 flex items-center justify-center">
+
+            <div
+            class="relative maxlg:w-[70%] lg:h-[90%] aspect-square bg-white cursor-pointer shadow-2xl"
+          >
+          <div class="absolute flex items-center justify-center h-[10%] w-[10%] text-5xl top-[10px] right-[10px] text-slate-600">
+            <i id="canvasP" class="fas fa-pause"> </i>
+          </div>
+          <div id="cHeight" class="absolute top-[50%] rotate-90 text-2xl">
+            px:
+          </div>
+          <div id="cWidth" class="absolute left-[50%] text-2xl">
+            px:
+          </div>
+            <canvas id="canvas" width="" height="" class="w-full h-full">
+            </canvas>
+          </div>
+
+        </div>
+    <script type="module" src="../js/app.js"></script>
+    <script type="module" src="../js/BITMAP.js"></script>
+    <script type="module" src="../js/PlaneClass.js"></script>
+  </body>
+</html>
