@@ -1,7 +1,7 @@
 import { BITMAP } from "./BITMAP.js";
 export class Plane {
   constructor() {
-    this.width = 500;
+    this.width = 50;
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
     this.lock = true;
@@ -39,13 +39,13 @@ export class Plane {
     });
   }
 
-  circle(x, y, r, color, accuracy) {
+  circle(x, y, r, color, accuracy,fill) {
     //center of circle (x,y)
     //range of circle is (r)
     //accurancy = sin(angle)*r, and cos(angle)*r
     //point of change is 2pi/accuracy
     let pointofchange = (2 * 3.141592) / accuracy;
-
+    let i =0;
     for (let i = 0; i < accuracy; i++) {
       let x1 = Math.ceil(x + r * Math.sin(pointofchange * i));
       let y1 = Math.ceil(y + r * Math.cos(pointofchange * i));
@@ -55,6 +55,24 @@ export class Plane {
       this.line(x1, y1, x2, y2, color);
     }
     console.log(this.plane);
+
+
+    if (fill == true) {
+
+      for (let k = 0; k < r; k++) {
+        for (let i = 0; i < accuracy; i++) {
+        
+          let x1 = Math.ceil(x + (r-k) * Math.sin(pointofchange * i));
+          let y1 = Math.ceil(y + (r-k) * Math.cos(pointofchange * i));
+          let x2 = Math.ceil(x + (r-k) * Math.sin(pointofchange * (i + 1)));
+          let y2 = Math.ceil(y + (r-k) * Math.cos(pointofchange * (i + 1)));
+          // this.putPixel(x1,y1,color)
+          this.line(x1, y1, x2, y2, color);
+        }
+    
+      }
+      
+    }
   }
 
   rectangle(x1, y1, x2, y2, color, fill) {
