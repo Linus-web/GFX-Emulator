@@ -724,8 +724,24 @@ video {
   margin-top: 100%;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+.block {
+  display: block;
+}
+
 .flex {
   display: flex;
+}
+
+.hidden {
+  display: none;
 }
 
 .aspect-video {
@@ -824,6 +840,22 @@ video {
 
 .h-\[12\%\] {
   height: 12%;
+}
+
+.h-\[50vh\] {
+  height: 50vh;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-80 {
+  height: 20rem;
+}
+
+.h-\[80\%\] {
+  height: 80%;
 }
 
 .max-h-\[200px\] {
@@ -942,6 +974,14 @@ video {
   width: 40%;
 }
 
+.w-\[40vw\] {
+  width: 40vw;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
+}
+
 .min-w-fit {
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
@@ -990,8 +1030,16 @@ video {
   flex-wrap: wrap;
 }
 
+.content-center {
+  align-content: center;
+}
+
 .items-start {
   align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -1010,6 +1058,10 @@ video {
   justify-content: center;
 }
 
+.justify-items-end {
+  justify-items: end;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -1022,12 +1074,46 @@ video {
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
+.space-y-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.place-self-end {
+  place-self: end;
+}
+
+.place-self-center {
+  place-self: center;
+}
+
 .self-end {
   align-self: flex-end;
 }
 
+.self-center {
+  align-self: center;
+}
+
 .justify-self-end {
   justify-self: end;
+}
+
+.justify-self-center {
+  justify-self: center;
 }
 
 .overflow-clip {
@@ -1073,6 +1159,11 @@ video {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
+.border-slate-700 {
+  --tw-border-opacity: 1;
+  border-color: rgb(51 65 85 / var(--tw-border-opacity));
 }
 
 .border-l-white {
@@ -1204,6 +1295,10 @@ video {
 
 .pb-5 {
   padding-bottom: 1.25rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -1338,6 +1433,14 @@ video {
 }
 
 @media (min-width: 768px) {
+  .md\:left-\[50\%\] {
+    left: 50%;
+  }
+
+  .md\:left-\[25\%\] {
+    left: 25%;
+  }
+
   .md\:h-full {
     height: 100%;
   }
