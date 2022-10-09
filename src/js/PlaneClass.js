@@ -88,12 +88,23 @@ export class Plane {
     this.line(x2, y2, x1, y2, color);
     this.line(x1, y2, x1, y1, color);
     if (fill == true) {
-      let LengthY = y2 - y1;
-      for (let i = x1; i < x2; i++) {
-        for (let k = 0; k < LengthY; k++) {
-          this.putPixel(i, y1 + k, color);
+      let LengthY = Math.abs( y2 - y1);
+
+      if (x1 < x2) {
+        for (let i = x1; i < x2; i++) {
+          for (let k = 0; k < LengthY; k++) {
+            this.putPixel(i, y1 + k, color);
+          }
         }
       }
+      else{
+        for (let i = x2; i < x1; i++) {
+          for (let k = 0; k < LengthY; k++) {
+            this.putPixel(i, y1 - k, color);
+          }
+        }
+      }
+    
     }
   }
 
@@ -204,11 +215,18 @@ export class Plane {
     this.line(x1, y1, x2, y2, color);
     this.line(x2, y2, x3, y3, color);
     this.line(x3, y3, x1, y1, color);
+    let area1 = x1*(y2-y3);
+    let area2 = x2*(y3-y1);
+    let area3 = x3*(y1-y2);
+    
+    let counter = 0;
+
+    let totalarea = Math.abs(Math.ceil((area1+area2+area3)/2))
 
     if (fill == true) {
         let c1x = x1;
         let c1y = y1;
-        for (let i = 0; i < this.width*2000; i++) {
+        for (let i = 0; i < totalarea*200; i++) {
             let x = 3;
             
             let direction = Math.floor(Math.random()*3+1)
