@@ -201,7 +201,6 @@ canvas.addEventListener("click", (event) => {
 });
 
 const modal = document.getElementById("myModal");
-const modalBackground = document.getElementById("modalBackground");
 const drawbtn = document.getElementById("draw");
 const span = document.getElementById("close");
 let tempplane = new Plane();
@@ -211,15 +210,13 @@ const tempctx = tempcanvas.getContext("2d");
 let tempinterval;
 tempplane.line(0, 0, 10, 10, inputC.value);
 
-function closeModal(){
-  modalBackground.classList.toggle("hidden");
+function closeModal1(){
   clearInterval(tempinterval);
   modal.classList.toggle("hidden");
 }
 
 
 drawbtn.onclick = function () {
-  modalBackground.classList.toggle("hidden");
   tempinterval = setInterval(() => {
     reScale(tempcanvas, tempplane);
     display(tempplane, tempctx);
@@ -228,12 +225,10 @@ drawbtn.onclick = function () {
 };
 
 span.onclick = function () {
-  closeModal()
+  closeModal1()
 };
 
-modalBackground.addEventListener("click", () => {
-  closeModal()
-})
+
 
 
 const generateTemp = document.getElementById("generateTemp")
@@ -245,5 +240,25 @@ generateTemp.addEventListener("click", () => {
       }
       tempplane.plane[i] = undefined
   }
-  closeModal()
+  closeModal1()
+})
+
+const resizeBtn = document.getElementById("resize")
+const resizeGenerate = document.getElementById("resizeGenerate")
+const resizeInput = document.getElementById("resizeInput")
+const resizeModal = document.getElementById("resizeModal")
+
+function closeModalResize(){
+    modalBackground.classList.toggle("hidden");
+  resizeModal.classList.toggle("hidden");
+}
+
+
+resizeBtn.addEventListener("click", ()=>{
+    console.log("hello")
+    resizeModal.classList.toggle("hidden")
+})
+
+resizeGenerate.addEventListener("click", () => {
+    closeModalResize()
 })
