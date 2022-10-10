@@ -28,7 +28,7 @@ function reScale(canvas, planex) {
   canvas.height = canvas.offsetHeight;
 }
 
-plane.rectangle(20,20,4,2,inputC.value,true)
+plane.rectangle(20,20,30,30,inputC.value,true,90,true)
 
 
 setInterval(() => {
