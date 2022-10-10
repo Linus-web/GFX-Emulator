@@ -47,7 +47,6 @@ export class Plane {
     //accurancy = sin(angle)*r, and cos(angle)*r
     //point of change is 2pi/accuracy
     let pointofchange = (2 * 3.141592) / accuracy;
-    let i =0;
     for (let i = 0; i < accuracy; i++) {
       let x1 = Math.ceil(x + r * Math.sin(pointofchange * i));
       let y1 = Math.ceil(y + r * Math.cos(pointofchange * i));
@@ -61,18 +60,20 @@ export class Plane {
 
     if (fill == true) {
 
-      for (let k = 0; k < r; k++) {
-        for (let i = 0; i < accuracy; i++) {
+      this.fillFunc(x,y,color)
+
+      // for (let k = 0; k < r; k++) {
+      //   for (let i = 0; i < accuracy; i++) {
         
-          let x1 = Math.ceil(x + (r-k) * Math.sin(pointofchange * i));
-          let y1 = Math.ceil(y + (r-k) * Math.cos(pointofchange * i));
-          let x2 = Math.ceil(x + (r-k) * Math.sin(pointofchange * (i + 1)));
-          let y2 = Math.ceil(y + (r-k) * Math.cos(pointofchange * (i + 1)));
-          // this.putPixel(x1,y1,color)
-          this.line(x1, y1, x2, y2, color);
-        }
+      //     let x1 = Math.ceil(x + (r-k) * Math.sin(pointofchange * i));
+      //     let y1 = Math.ceil(y + (r-k) * Math.cos(pointofchange * i));
+      //     let x2 = Math.ceil(x + (r-k) * Math.sin(pointofchange * (i + 1)));
+      //     let y2 = Math.ceil(y + (r-k) * Math.cos(pointofchange * (i + 1)));
+      //     // this.putPixel(x1,y1,color)
+      //     this.line(x1, y1, x2, y2, color);
+      //   }
     
-      }
+      // }
       
     }
   }
@@ -88,25 +89,13 @@ export class Plane {
     this.line(x2, y2, x1, y2, color);
     this.line(x1, y2, x1, y1, color);
     if (fill == true) {
-      let LengthY = Math.abs( y2 - y1);
 
-      if (x1 < x2) {
-        for (let i = x1; i < x2; i++) {
-          for (let k = 0; k < LengthY; k++) {
-            this.putPixel(i, y1 + k, color);
-          }
-        }
-      }
-      else{
-        for (let i = x2; i < x1; i++) {
-          for (let k = 0; k < LengthY; k++) {
-            this.putPixel(i, y1 - k, color);
-          }
-        }
-      }
+      let xCenter= (x1+x2)/2;
+      let yCenter=(y1+y2)/2;
+      this.fillFunc(xCenter,yCenter,color)
     
-    }
   }
+}
 
   clear(color) {
     for (let i = 0; i < this.plane.length; i++) {
@@ -224,41 +213,15 @@ export class Plane {
     let totalarea = Math.abs(Math.ceil((area1+area2+area3)/2))
 
     if (fill == true) {
-        let c1x = x1;
-        let c1y = y1;
-        for (let i = 0; i < totalarea*200; i++) {
-            let x = 3;
-            
-            let direction = Math.floor(Math.random()*3+1)
-
-            switch (direction) {
-                case 1:
-                    c1x +=Math.round(((x1-c1x)/x));
-                    c1y +=Math.round(((y1-c1y)/x));
-                    this.putPixel(c1x,c1y,color)
-                    console.log(c1x +","+c1y)
-                    
-                break;
-            
-                case 2:
-                    c1x +=Math.round(((x2-c1x)/x));
-                    c1y +=Math.round(((y2-c1y)/x));
-                    this.putPixel(c1x,c1y,color)
-                    
-                break;
-
-                case 3:
-                    c1x +=Math.round(((x3-c1x)/x));
-                    c1y +=Math.round(((y3-c1y)/x));
-                    this.putPixel(c1x,c1y,color)
-                    
-                break;
-            
-            }
+      let xCenter=Math.ceil((x1+x2+x3)/3);
+      let yCenter=Math.ceil((y1+y2+y3)/3);
+      console.log(xCenter,yCenter,counter)
+      this.fillFunc(xCenter,yCenter,color,counter)
+     
           }
       
     }
-  }
+  
 
 
  
@@ -284,7 +247,30 @@ export class Plane {
 
   }
 
+  fillFunc(x,y,newColor){
 
+    if (x<0 || y<0 || x> this.width || y >= this.plane.length || this.plane[x+y*this.width]==newColor) {
+      return; 
+
+    }
+    // else if(counter ==this.plane.length*4){
+    //   break;
+
+    // }
+    else{
+
+
+       this.putPixel(x,y,newColor)
+       this.fillFunc(x+1,y,newColor)
+        this.fillFunc(x-1,y,newColor)
+        this.fillFunc(x,y-1,newColor)
+        this.fillFunc(x,y+1,newColor)
+      
+     
+
+    }     
+
+}
 
 
 }
