@@ -78,20 +78,39 @@ export class Plane {
     }
   }
 
-  rectangle(x1, y1, x2, y2, color, fill) {
-    //four points to generate
-    //first point (x1,y1)
-    //second point (x2, y1)
-    //third point (x2,y2)
-    //fourth point (x1,y2)
+  rectangle(x1, y1, x2, y2, color,rotate,offangle, fill) {
+    let Offset= offangle*(3.141592/180)
+  
+    let xCenter= (x1+x2)/2;
+    let yCenter=(y1+y2)/2;
+    let ylength = Math.abs(y2-y1);
+    let xlength = Math.abs(x2-x1);
+    let r =Math.ceil(Math.sqrt(xlength**2 + ylength**2))
+
+
+    if (rotate == true) {
+      let pointofchange = (2 * 3.141592) / 4;
+
+      for (let i = 0; i < 4; i++) {
+        let x1 = Math.ceil(xCenter + r * Math.sin(pointofchange * i+Offset));
+        let y1 = Math.ceil(yCenter + r * Math.cos(pointofchange * i+Offset));
+        let x2 = Math.ceil(xCenter + r * Math.sin(pointofchange * (i + 1)+Offset));
+        let y2 = Math.ceil(yCenter + r * Math.cos(pointofchange * (i + 1)+Offset));
+        // this.putPixel(x1,y1,color)
+        this.line(x1, y1, x2, y2, color);
+      }
+      
+    }
+    else{
     this.line(x1, y1, x2, y1, color);
     this.line(x2, y1, x2, y2, color);
     this.line(x2, y2, x1, y2, color);
     this.line(x1, y2, x1, y1, color);
+  }
     if (fill == true) {
 
-      let xCenter= (x1+x2)/2;
-      let yCenter=(y1+y2)/2;
+      let xCenter= Math.ceil((x1+x2)/2);
+      let yCenter=Math.ceil((y1+y2)/2);
       this.fillFunc(xCenter,yCenter,color)
     
   }
