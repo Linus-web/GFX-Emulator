@@ -3,7 +3,6 @@ export class Plane {
   constructor() {
 
     this.width = 40;
-
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
     this.lock = true;
@@ -55,7 +54,6 @@ export class Plane {
       // this.putPixel(x1,y1,color)
       this.line(x1, y1, x2, y2, color);
     }
-    console.log(this.plane);
 
 
     if (fill == true) {
@@ -124,7 +122,8 @@ export class Plane {
   resize(size) {
     this.width = size;
     this.height = size;
-    this.plane = [this.width * this.height];
+    this.plane = new Array(this.width*this.height);
+    
   }
 
   textOut(x, y, color, txt) {}
@@ -248,7 +247,6 @@ export class Plane {
   arc(x, y, r,angleDeg, color, accuracy,vo){
 
     let Offset= vo*(3.141592/180)
-    console.log(Offset)
     let Rads= angleDeg*(3.141592/180)
 
     let pointofchange = Rads / accuracy;
@@ -261,8 +259,6 @@ export class Plane {
       // this.putPixel(x1,y1,color)
       this.line(x1, y1, x2, y2, color);
     }
-    console.log(this.plane)
-    
 
   }
 
