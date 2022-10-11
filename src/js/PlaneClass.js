@@ -6,6 +6,10 @@ export class Plane {
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
     this.lock = true;
+    this.saveState = 0
+    this.saves = {
+
+    }
   }
   putPixel(x, y, color) {
     this.plane[x + y * this.width] = color;
@@ -32,13 +36,11 @@ export class Plane {
         y1 += sy;
       }
     }
+
+
   }
 
-  clear(color) {
-    this.plane.forEach((element) => {
-      element = color;
-    });
-  }
+
 
   circle(x, y, r, color, accuracy,fill) {
     //center of circle (x,y)
@@ -114,9 +116,9 @@ export class Plane {
   }
 }
 
-  clear(color) {
+  clear() {
     for (let i = 0; i < this.plane.length; i++) {
-      this.plane[i] = color
+      this.plane[i] = '#ffffff' 
     }
   }
   resize(size) {
@@ -205,6 +207,7 @@ export class Plane {
     }
     for (let i = 0; i < this.width; i++)
       this.plane[this.width ** 2 - 1 - i] = tempArr[this.width - 1 - i];
+
   }
   pScrollDown() {
     let tempArr = [];
@@ -216,6 +219,7 @@ export class Plane {
       }
     }
     for (let i = 0; i < this.width; i++) this.plane[i] = tempArr[i];
+
   }
 
   triangle(x1, y1, x2, y2, x3, y3, color,fill) {
@@ -233,15 +237,47 @@ export class Plane {
     if (fill == true) {
       let xCenter=Math.ceil((x1+x2+x3)/3);
       let yCenter=Math.ceil((y1+y2+y3)/3);
-      console.log(xCenter,yCenter,counter)
       this.fillFunc(xCenter,yCenter,color,counter)
      
           }
-      
     }
   
+    
+    savePlane(){
+       
+        let arr = this.plane.slice()
+        this.saveState++
+        this.saves[this.saveState] = arr
+        console.log(Object.keys(this.saves).length);
+        console.log(this.saves);
+        if(Object.keys(this.saves).length>this.saveState){
+            console.log('deleted saves after current');    
+            let length = Object.keys(this.saves).length
+        for (let i = this.saveState+1; i <= length; i++) {
+            delete this.saves[i]     
+        }
+    }
+    }
 
+    undo(){
+        if(this.saveState > 1){
+            this.saveState--
+            this.plane = this.saves[this.saveState]
+            let arr = this.plane.slice()
+            this.plane = arr
+            }
+            
+    }
 
+    redo(){
+        console.log("redo");
+        if(this.saveState<Object.keys(this.saves).length){
+            this.saveState++
+            this.plane = this.saves[this.saveState]   
+            let arr = this.plane.slice()
+            this.plane = arr
+        }
+    }
  
 
   arc(x, y, r,angleDeg, color, accuracy,vo){
