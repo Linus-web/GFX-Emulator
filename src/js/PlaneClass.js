@@ -1,15 +1,12 @@
 import { BITMAP } from "./BITMAP.js";
 export class Plane {
   constructor() {
-
     this.width = 40;
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
     this.lock = true;
-    this.saveState = 0
-    this.saves = {
-
-    }
+    this.saveState = 0;
+    this.saves = {};
   }
   putPixel(x, y, color) {
     this.plane[x + y * this.width] = color;
@@ -36,13 +33,9 @@ export class Plane {
         y1 += sy;
       }
     }
-
-
   }
 
-
-
-  circle(x, y, r, color, accuracy,fill) {
+  circle(x, y, r, color, accuracy, fill) {
     //center of circle (x,y)
     //range of circle is (r)
     //accurancy = sin(angle)*r, and cos(angle)*r
@@ -57,14 +50,12 @@ export class Plane {
       this.line(x1, y1, x2, y2, color);
     }
 
-
     if (fill == true) {
-
-      this.fillFunc(x,y,color)
+      this.fillFunc(x, y, color);
 
       // for (let k = 0; k < r; k++) {
       //   for (let i = 0; i < accuracy; i++) {
-        
+
       //     let x1 = Math.ceil(x + (r-k) * Math.sin(pointofchange * i));
       //     let y1 = Math.ceil(y + (r-k) * Math.cos(pointofchange * i));
       //     let x2 = Math.ceil(x + (r-k) * Math.sin(pointofchange * (i + 1)));
@@ -72,60 +63,57 @@ export class Plane {
       //     // this.putPixel(x1,y1,color)
       //     this.line(x1, y1, x2, y2, color);
       //   }
-    
+
       // }
-      
     }
   }
 
-  rectangle(x1, y1, x2, y2, color,rotate,offangle, fill) {
-    let Offset= offangle*(3.141592/180)
-  
-    let xCenter= (x1+x2)/2;
-    let yCenter=(y1+y2)/2;
-    let ylength = Math.abs(y2-y1);
-    let xlength = Math.abs(x2-x1);
-    let r =Math.ceil(Math.sqrt(xlength**2 + ylength**2))
+  rectangle(x1, y1, x2, y2, color, rotate, offangle, fill) {
+    let Offset = offangle * (3.141592 / 180);
 
+    let xCenter = (x1 + x2) / 2;
+    let yCenter = (y1 + y2) / 2;
+    let ylength = Math.abs(y2 - y1);
+    let xlength = Math.abs(x2 - x1);
+    let r = Math.ceil(Math.sqrt(xlength ** 2 + ylength ** 2));
 
     if (rotate == true) {
       let pointofchange = (2 * 3.141592) / 4;
 
       for (let i = 0; i < 4; i++) {
-        let x1 = Math.ceil(xCenter + r * Math.sin(pointofchange * i+Offset));
-        let y1 = Math.ceil(yCenter + r * Math.cos(pointofchange * i+Offset));
-        let x2 = Math.ceil(xCenter + r * Math.sin(pointofchange * (i + 1)+Offset));
-        let y2 = Math.ceil(yCenter + r * Math.cos(pointofchange * (i + 1)+Offset));
+        let x1 = Math.ceil(xCenter + r * Math.sin(pointofchange * i + Offset));
+        let y1 = Math.ceil(yCenter + r * Math.cos(pointofchange * i + Offset));
+        let x2 = Math.ceil(
+          xCenter + r * Math.sin(pointofchange * (i + 1) + Offset)
+        );
+        let y2 = Math.ceil(
+          yCenter + r * Math.cos(pointofchange * (i + 1) + Offset)
+        );
         // this.putPixel(x1,y1,color)
         this.line(x1, y1, x2, y2, color);
       }
-      
+    } else {
+      this.line(x1, y1, x2, y1, color);
+      this.line(x2, y1, x2, y2, color);
+      this.line(x2, y2, x1, y2, color);
+      this.line(x1, y2, x1, y1, color);
     }
-    else{
-    this.line(x1, y1, x2, y1, color);
-    this.line(x2, y1, x2, y2, color);
-    this.line(x2, y2, x1, y2, color);
-    this.line(x1, y2, x1, y1, color);
-  }
     if (fill == true) {
-
-      let xCenter= Math.ceil((x1+x2)/2);
-      let yCenter=Math.ceil((y1+y2)/2);
-      this.fillFunc(xCenter,yCenter,color)
-    
+      let xCenter = Math.ceil((x1 + x2) / 2);
+      let yCenter = Math.ceil((y1 + y2) / 2);
+      this.fillFunc(xCenter, yCenter, color);
+    }
   }
-}
 
   clear() {
     for (let i = 0; i < this.plane.length; i++) {
-      this.plane[i] = '#ffffff' 
+      this.plane[i] = "#ffffff";
     }
   }
   resize(size) {
     this.width = size;
     this.height = size;
-    this.plane = new Array(this.width*this.height);
-    
+    this.plane = new Array(this.width * this.height);
   }
 
   textOut(x, y, color, txt) {}
@@ -158,7 +146,8 @@ export class Plane {
   scrollDown() {
     for (let y = this.height - 1; y >= 0; y--) {
       for (let i = 0; i < this.width; i++) {
-        this.plane[i + y * this.width] = this.plane[i + y * this.width - this.width];
+        this.plane[i + y * this.width] =
+          this.plane[i + y * this.width - this.width];
       }
     }
   }
@@ -207,7 +196,6 @@ export class Plane {
     }
     for (let i = 0; i < this.width; i++)
       this.plane[this.width ** 2 - 1 - i] = tempArr[this.width - 1 - i];
-
   }
   pScrollDown() {
     let tempArr = [];
@@ -215,113 +203,102 @@ export class Plane {
       tempArr[this.width - 1 - i] = this.plane[this.width ** 2 - 1 - i];
     for (let y = this.height - 1; y >= 0; y--) {
       for (let i = 0; i < this.width; i++) {
-        this.plane[i + y * this.width] = this.plane[i + y * this.width - this.width];
+        this.plane[i + y * this.width] =
+          this.plane[i + y * this.width - this.width];
       }
     }
     for (let i = 0; i < this.width; i++) this.plane[i] = tempArr[i];
-
   }
 
-  triangle(x1, y1, x2, y2, x3, y3, color,fill) {
+  triangle(x1, y1, x2, y2, x3, y3, color, fill) {
     this.line(x1, y1, x2, y2, color);
     this.line(x2, y2, x3, y3, color);
     this.line(x3, y3, x1, y1, color);
-    let area1 = x1*(y2-y3);
-    let area2 = x2*(y3-y1);
-    let area3 = x3*(y1-y2);
-    
+    let area1 = x1 * (y2 - y3);
+    let area2 = x2 * (y3 - y1);
+    let area3 = x3 * (y1 - y2);
+
     let counter = 0;
 
-    let totalarea = Math.abs(Math.ceil((area1+area2+area3)/2))
+    let totalarea = Math.abs(Math.ceil((area1 + area2 + area3) / 2));
 
     if (fill == true) {
-      let xCenter=Math.ceil((x1+x2+x3)/3);
-      let yCenter=Math.ceil((y1+y2+y3)/3);
-      this.fillFunc(xCenter,yCenter,color,counter)
-     
-          }
+      let xCenter = Math.ceil((x1 + x2 + x3) / 3);
+      let yCenter = Math.ceil((y1 + y2 + y3) / 3);
+      this.fillFunc(xCenter, yCenter, color, counter);
     }
-  
-    
-    savePlane(){
-       
-        let arr = this.plane.slice()
-        this.saveState++
-        this.saves[this.saveState] = arr
-        console.log(Object.keys(this.saves).length);
-        console.log(this.saves);
-        if(Object.keys(this.saves).length>this.saveState){
-            console.log('deleted saves after current');    
-            let length = Object.keys(this.saves).length
-        for (let i = this.saveState+1; i <= length; i++) {
-            delete this.saves[i]     
-        }
-    }
-    }
+  }
 
-    undo(){
-        if(this.saveState > 1){
-            this.saveState--
-            this.plane = this.saves[this.saveState]
-            let arr = this.plane.slice()
-            this.plane = arr
-            }
-            
+  savePlane() {
+    let arr = this.plane.slice();
+    this.saveState++;
+    this.saves[this.saveState] = arr;
+    console.log(Object.keys(this.saves).length);
+    console.log(this.saves);
+    if (Object.keys(this.saves).length > this.saveState) {
+      console.log("deleted saves after current");
+      let length = Object.keys(this.saves).length;
+      for (let i = this.saveState + 1; i <= length; i++) {
+        delete this.saves[i];
+      }
     }
+  }
 
-    redo(){
-        console.log("redo");
-        if(this.saveState<Object.keys(this.saves).length){
-            this.saveState++
-            this.plane = this.saves[this.saveState]   
-            let arr = this.plane.slice()
-            this.plane = arr
-        }
+  undo() {
+    if (this.saveState > 1) {
+      this.saveState--;
+      this.plane = this.saves[this.saveState];
+      let arr = this.plane.slice();
+      this.plane = arr;
     }
- 
+  }
 
-  arc(x, y, r,angleDeg, color, accuracy,vo){
+  redo() {
+    console.log("redo");
+    if (this.saveState < Object.keys(this.saves).length) {
+      this.saveState++;
+      this.plane = this.saves[this.saveState];
+      let arr = this.plane.slice();
+      this.plane = arr;
+    }
+  }
 
-    let Offset= vo*(3.141592/180)
-    let Rads= angleDeg*(3.141592/180)
+  arc(x, y, r, angleDeg, color, accuracy, vo) {
+    let Offset = vo * (3.141592 / 180);
+    let Rads = angleDeg * (3.141592 / 180);
 
     let pointofchange = Rads / accuracy;
 
     for (let i = 0; i < accuracy; i++) {
       let x1 = Math.ceil(x + r * Math.sin(pointofchange * i + Offset));
       let y1 = Math.ceil(y + r * Math.cos(pointofchange * i + Offset));
-      let x2 = Math.ceil(x + r * Math.sin(pointofchange * (i + 1)+ Offset));//next point  in question
-      let y2 = Math.ceil(y + r * Math.cos(pointofchange * (i + 1)+ Offset));
+      let x2 = Math.ceil(x + r * Math.sin(pointofchange * (i + 1) + Offset)); //next point  in question
+      let y2 = Math.ceil(y + r * Math.cos(pointofchange * (i + 1) + Offset));
       // this.putPixel(x1,y1,color)
       this.line(x1, y1, x2, y2, color);
     }
-
   }
 
-  fillFunc(x,y,newColor){
-
-    if (x<0 || y<0 || x> this.width || y >= this.plane.length || this.plane[x+y*this.width]==newColor) {
-      return; 
-
+  fillFunc(x, y, newColor) {
+    if (
+      x < 0 ||
+      y < 0 ||
+      x > this.width ||
+      y >= this.plane.length ||
+      this.plane[x + y * this.width] == newColor
+    ) {
+      return;
     }
     // else if(counter ==this.plane.length*4){
     //   break;
 
     // }
-    else{
-
-
-       this.putPixel(x,y,newColor)
-       this.fillFunc(x+1,y,newColor)
-        this.fillFunc(x-1,y,newColor)
-        this.fillFunc(x,y-1,newColor)
-        this.fillFunc(x,y+1,newColor)
-      
-     
-
-    }     
-
-}
-
-
+    else {
+      this.putPixel(x, y, newColor);
+      this.fillFunc(x + 1, y, newColor);
+      this.fillFunc(x - 1, y, newColor);
+      this.fillFunc(x, y - 1, newColor);
+      this.fillFunc(x, y + 1, newColor);
+    }
+  }
 }

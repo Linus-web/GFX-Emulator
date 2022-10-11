@@ -7,8 +7,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const inputC = document.getElementById("inputC");
 
-plane.savePlane()
-
+plane.savePlane();
 
 function display(planex, canvasCtx) {
   for (let i = 0; i < planex.plane.length; i++) {
@@ -29,7 +28,6 @@ function reScale(canvas, planex) {
   canvas.width = canvas.offsetHeight;
   canvas.height = canvas.offsetHeight;
 }
-
 
 setInterval(() => {
   reScale(canvas, plane);
@@ -161,9 +159,6 @@ btnDown.addEventListener("click", () => {
   }
 });
 
-
-
-
 const btnPause = document.getElementById("play");
 const canvasP = document.getElementById("canvasP");
 
@@ -182,9 +177,8 @@ btnPause.addEventListener("click", () => {
 const btnClear = document.getElementById("clear");
 
 btnClear.addEventListener("click", () => {
-    plane.savePlane()
-    plane.clear();
-
+  plane.savePlane();
+  plane.clear();
 });
 
 const draw = document.getElementById("draw");
@@ -235,7 +229,7 @@ function stopPutPixel() {
   canvas.removeEventListener("mousedown", startPutPixel);
   canvas.removeEventListener("mouseup", stopPutPixel);
   canvas.removeEventListener("mouseleave", stopPutPixel);
-  plane.savePlane()
+  plane.savePlane();
 }
 function updateCursorPos(event) {
   rect = canvas.getBoundingClientRect();
@@ -254,7 +248,6 @@ canvas.addEventListener("click", (event) => {
       break;
 
     case "line":
-
       if (points.x1 == null) {
         points = {};
         points.x1 = coords.x;
@@ -265,16 +258,14 @@ canvas.addEventListener("click", (event) => {
         points.y2 = coords.y;
         plane.line(points.x1, points.y1, points.x2, points.y2, inputC.value);
         points = {};
-        plane.savePlane()
-
+        plane.savePlane();
       }
 
-
       break;
-      case 'fill':
-        plane.fillFunc(coords.x,coords.y,inputC.value)
-        plane.savePlane()
-      break
+    case "fill":
+      plane.fillFunc(coords.x, coords.y, inputC.value);
+      plane.savePlane();
+      break;
     case "circle":
       if (points.x1 == null) {
         points = {};
@@ -283,53 +274,69 @@ canvas.addEventListener("click", (event) => {
       } else {
         points.x2 = coords.x;
         points.y2 = coords.y;
-        let midPointX = (points.x1+points.x2)/2
-        let midPointY = (points.y1+points.y2)/2
-        let radius = Math.abs(midPointX - points.x1)>Math.abs(midPointY-points.y1)?Math.abs(midPointX - points.x1):Math.abs(midPointY-points.y1);
-        plane.circle(midPointX,midPointY,radius,inputC.value,360,false)
+        let midPointX = (points.x1 + points.x2) / 2;
+        let midPointY = (points.y1 + points.y2) / 2;
+        let radius =
+          Math.abs(midPointX - points.x1) > Math.abs(midPointY - points.y1)
+            ? Math.abs(midPointX - points.x1)
+            : Math.abs(midPointY - points.y1);
+        plane.circle(midPointX, midPointY, radius, inputC.value, 360, false);
         points = {};
-      plane.savePlane()
-
+        plane.savePlane();
       }
 
       break;
-      
-      case 'square':
-        if (points.x1 == null) {
-          points = {};
-          points.x1 = coords.x;
-          points.y1 = coords.y;
-          plane.putPixel(points.x1, points.y1, inputC.value);
-        } else {
-          points.x2 = coords.x;
-          points.y2 = coords.y;
-          plane.rectangle(points.x1,points.y1,points.x2,points.y2,inputC.value,false)
-          points = {};
-        plane.savePlane()
-        }
-      break
-     case 'triangle':
 
+    case "square":
       if (points.x1 == null) {
         points = {};
         points.x1 = coords.x;
         points.y1 = coords.y;
         plane.putPixel(points.x1, points.y1, inputC.value);
-      } else if(points.x2 ==null) {
+      } else {
         points.x2 = coords.x;
         points.y2 = coords.y;
-        plane.putPixel(points.x2,points.y2,inputC.value)
-      }else{
-        points.x3 = coords.x
-        points.y3 = coords.y
-        plane.triangle(points.x1,points.y1,points.x2,points.y2,points.x3,points.y3,inputC.value,false)
+        plane.rectangle(
+          points.x1,
+          points.y1,
+          points.x2,
+          points.y2,
+          inputC.value,
+          false
+        );
         points = {};
-      plane.savePlane()
-
+        plane.savePlane();
       }
-      break
+      break;
+    case "triangle":
+      if (points.x1 == null) {
+        points = {};
+        points.x1 = coords.x;
+        points.y1 = coords.y;
+        plane.putPixel(points.x1, points.y1, inputC.value);
+      } else if (points.x2 == null) {
+        points.x2 = coords.x;
+        points.y2 = coords.y;
+        plane.putPixel(points.x2, points.y2, inputC.value);
+      } else {
+        points.x3 = coords.x;
+        points.y3 = coords.y;
+        plane.triangle(
+          points.x1,
+          points.y1,
+          points.x2,
+          points.y2,
+          points.x3,
+          points.y3,
+          inputC.value,
+          false
+        );
+        points = {};
+        plane.savePlane();
+      }
+      break;
     default:
-        alert('no tool selected')
+      alert("no tool selected");
       break;
   }
 });
@@ -363,17 +370,17 @@ modalBtns.forEach((element) => {
       case "line":
         currentTool = "line";
         break;
-        case 'fill':
-            currentTool = 'fill'
-            break
+      case "fill":
+        currentTool = "fill";
+        break;
       case "circle":
         currentTool = "circle";
         break;
-     
+
       case "square":
         currentTool = "square";
         break;
-     
+
       case "triangle":
         currentTool = "triangle";
         break;
@@ -387,15 +394,14 @@ modalBtns.forEach((element) => {
   });
 });
 
-
-const undo = document.getElementById("undo")
+const undo = document.getElementById("undo");
 
 undo.addEventListener("click", () => {
-    plane.undo()
-})
+  plane.undo();
+});
 
-const redo = document.getElementById("redo")
+const redo = document.getElementById("redo");
 
 redo.addEventListener("click", () => {
-    plane.redo()
-})
+  plane.redo();
+});
