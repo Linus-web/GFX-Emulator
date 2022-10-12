@@ -23,17 +23,11 @@ function display(planex, canvasCtx) {
   }
 }
 
-
-
-
 function reScale(canvas, planex) {
   pixelWidth = canvas.offsetHeight / planex.width;
   canvas.width = canvas.offsetHeight;
   canvas.height = canvas.offsetHeight;
 }
-
-
-plane.textOut(20,20,inputC.value,"Dan is best")
 
 setInterval(() => {
   reScale(canvas, plane);
@@ -341,6 +335,9 @@ canvas.addEventListener("click", (event) => {
         plane.savePlane();
       }
       break;
+    case "text":
+      break;
+
     default:
       alert("no tool selected");
       break;
@@ -393,9 +390,6 @@ modalBtns.forEach((element) => {
       case "text":
         currentTool = "text";
         break;
-
-      default:
-        break;
     }
   });
 });
@@ -410,4 +404,32 @@ const redo = document.getElementById("redo");
 
 redo.addEventListener("click", () => {
   plane.redo();
+});
+
+const textModal = document.getElementById("textModal");
+const textBtn = document.getElementById("text");
+const textInputx = document.getElementById("textInputX");
+const textInputy = document.getElementById("textInputY");
+const textTextInput = document.getElementById("textTextInput");
+const textGenerate = document.getElementById("textGenerate");
+
+textBtn.addEventListener("click", () => {
+  textModal.classList.toggle("hidden");
+});
+
+textGenerate.addEventListener("click", () => {
+  if (
+    textTextInput.value != "" &&
+    textInputx.value != "" &&
+    textInputy.value != ""
+  ) {
+    let x = parseInt(textInputx.value);
+    let y = parseInt(textInputy.value);
+    let text = textTextInput.value;
+    plane.textOut(x, y, inputC.value, text);
+    textInputx.value = "";
+    textInputy.value = "";
+    textTextInput.value = "";
+    textModal.classList.toggle("hidden");
+  } else alert("Missing or Faulty Inputs");
 });
