@@ -176,6 +176,22 @@
                     <button id="resizeGenerate" class="border-4 h-[90%] px-2 flex justify-center items-center  border-r-slate-700 border-t-slate-500 border-b-slate-700 border-l-slate-500 bg-slate-400 hover:bg-slate-300">Generate</button>
                 </div>
             </div>
+            <div id="textModal" class="absolute hidden h-[25vh] w-[20vw] flex flex-col self-center left-[40%] bg-slate-400 border-4 border-r-slate-700 border-t-slate-500 border-b-slate-700 border-l-slate-500">
+              <div class="h-[20%] w-full flex justify-start items-center pl-2 border-b-4 border-b-slate-500 text-slate-100">
+                Resize bitmap
+              </div>
+              <div class="h-[40%] flex items-center justify-start pl-[5%]">
+                X:<input class="w-[50%] mx-2" type="number" name="" id="textInputX" placeholder="number"> 
+                Y:<input class="w-[50%] mx-2" type="number" name="" id="textInputY" placeholder="number"> 
+              </div>
+              <div class="h-[40%] flex items-center justify-start pl-[5%]">
+                Text: <input class="w-[50%] mx-2" type="text" name="" id="textTextInput">
+              </div>
+              
+              <div class="flex w-full h-[25%] mt-5 justify-center items-center">
+                <button id="textGenerate" class="border-4 h-[90%] px-2 flex justify-center items-center  border-r-slate-700 border-t-slate-500 border-b-slate-700 border-l-slate-500 bg-slate-400 hover:bg-slate-300">Generate</button>
+            </div>
+        </div>
 
 
     <script type="module" src="../js/app.js"></script>
