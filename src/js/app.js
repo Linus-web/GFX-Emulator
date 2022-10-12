@@ -5,8 +5,9 @@ let pixelWidth;
 let plane = new Plane();
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-
 const inputC = document.getElementById("inputC");
+
+plane.savePlane();
 
 function display(planex, canvasCtx) {
   for (let i = 0; i < planex.plane.length; i++) {
@@ -33,16 +34,16 @@ function reScale(canvas, planex) {
 
 
 plane.textOut(20,20,inputC.value,"Dan is best")
+
 setInterval(() => {
   reScale(canvas, plane);
   display(plane, ctx);
+  cHeight.innerText = "px: " + plane.height;
+  cWidth.innerText = "px: " + plane.width;
 }, 50);
 
 const cHeight = document.getElementById("cHeight");
 const cWidth = document.getElementById("cWidth");
-
-cHeight.innerText = "px: " + plane.height;
-cWidth.innerText = "px: " + plane.width;
 
 const btnUp = document.getElementById("up");
 const btnDown = document.getElementById("down");
@@ -182,7 +183,8 @@ btnPause.addEventListener("click", () => {
 const btnClear = document.getElementById("clear");
 
 btnClear.addEventListener("click", () => {
-  plane.clear(inputC.value);
+  plane.savePlane();
+  plane.clear();
 });
 
 const draw = document.getElementById("draw");
@@ -196,70 +198,216 @@ draw.addEventListener("click", () => {
   disableAllTools();
   drawPressed = true;
 });
+let coords = {};
+let currentTool;
 
-canvas.addEventListener("click", (event) => {
-  let rect = canvas.getBoundingClientRect();
-});
+let points = {};
 
-const modal = document.getElementById("myModal");
-const drawbtn = document.getElementById("draw");
-const span = document.getElementById("close");
-let tempplane = new Plane();
-const tempcanvas = document.getElementById("tempCanvas");
-const tempctx = tempcanvas.getContext("2d");
+let drawInterval;
+let rect;
+let coordX;
+let coordY;
 
-let tempinterval;
-tempplane.line(0, 0, 10, 10, inputC.value);
-
-function closeModal1(){
-  clearInterval(tempinterval);
-  modal.classList.toggle("hidden");
+function startPutPixel() {
+  canvas.addEventListener("mouseup", stopPutPixel);
+  canvas.addEventListener("mouseleave", stopPutPixel);
+  canvas.addEventListener("mousemove", updateCursorPos);
+  drawInterval = setInterval(() => {
+    if (points.x1 == null) {
+      points.x1 = coords.x;
+      points.y1 = coords.y;
+      if (points.x2 != null) {
+        plane.line(points.x2, points.y2, points.x1, points.y1, inputC.value);
+      }
+    } else {
+      points.x2 = coords.x;
+      points.y2 = coords.y;
+      plane.line(points.x1, points.y1, points.x2, points.y2, inputC.value);
+      points.x1 = null;
+      points.y1 = null;
+    }
+  }, 50);
+}
+function stopPutPixel() {
+  points = {};
+  clearInterval(drawInterval);
+  canvas.removeEventListener("mousemove", updateCursorPos);
+  canvas.removeEventListener("mousedown", startPutPixel);
+  canvas.removeEventListener("mouseup", stopPutPixel);
+  canvas.removeEventListener("mouseleave", stopPutPixel);
+  plane.savePlane();
+}
+function updateCursorPos(event) {
+  rect = canvas.getBoundingClientRect();
+  coordX = Math.floor((event.x - rect.left) / pixelWidth);
+  coordY = Math.floor((event.y - rect.top) / pixelWidth);
+  coords.x = parseInt(coordX);
+  coords.y = parseInt(coordY);
 }
 
+canvas.addEventListener("click", (event) => {
+  updateCursorPos(event);
 
-drawbtn.onclick = function () {
-  tempinterval = setInterval(() => {
-    reScale(tempcanvas, tempplane);
-    display(tempplane, tempctx);
-  }, 200);
-  modal.classList.toggle("hidden");
-};
+  switch (currentTool) {
+    case "draw":
+      canvas.addEventListener("mousedown", startPutPixel);
+      break;
 
-span.onclick = function () {
-  closeModal1()
-};
-
-
-
-
-const generateTemp = document.getElementById("generateTemp")
-
-generateTemp.addEventListener("click", () => {
-  for (let i = 0; i < plane.plane.length; i++) {
-      if(tempplane.plane[i] != undefined){
-      plane.plane[i] = tempplane.plane[i]
+    case "line":
+      if (points.x1 == null) {
+        points = {};
+        points.x1 = coords.x;
+        points.y1 = coords.y;
+        plane.putPixel(points.x1, points.y1, inputC.value);
+      } else {
+        points.x2 = coords.x;
+        points.y2 = coords.y;
+        plane.line(points.x1, points.y1, points.x2, points.y2, inputC.value);
+        points = {};
+        plane.savePlane();
       }
-      tempplane.plane[i] = undefined
+
+      break;
+    case "fill":
+      plane.fillFunc(coords.x, coords.y, inputC.value);
+      plane.savePlane();
+      break;
+    case "circle":
+      if (points.x1 == null) {
+        points = {};
+        points.x1 = coords.x;
+        points.y1 = coords.y;
+      } else {
+        points.x2 = coords.x;
+        points.y2 = coords.y;
+        let midPointX = (points.x1 + points.x2) / 2;
+        let midPointY = (points.y1 + points.y2) / 2;
+        let radius =
+          Math.abs(midPointX - points.x1) > Math.abs(midPointY - points.y1)
+            ? Math.abs(midPointX - points.x1)
+            : Math.abs(midPointY - points.y1);
+        plane.circle(midPointX, midPointY, radius, inputC.value, 360, false);
+        points = {};
+        plane.savePlane();
+      }
+
+      break;
+
+    case "square":
+      if (points.x1 == null) {
+        points = {};
+        points.x1 = coords.x;
+        points.y1 = coords.y;
+        plane.putPixel(points.x1, points.y1, inputC.value);
+      } else {
+        points.x2 = coords.x;
+        points.y2 = coords.y;
+        plane.rectangle(
+          points.x1,
+          points.y1,
+          points.x2,
+          points.y2,
+          inputC.value,
+          false
+        );
+        points = {};
+        plane.savePlane();
+      }
+      break;
+    case "triangle":
+      if (points.x1 == null) {
+        points = {};
+        points.x1 = coords.x;
+        points.y1 = coords.y;
+        plane.putPixel(points.x1, points.y1, inputC.value);
+      } else if (points.x2 == null) {
+        points.x2 = coords.x;
+        points.y2 = coords.y;
+        plane.putPixel(points.x2, points.y2, inputC.value);
+      } else {
+        points.x3 = coords.x;
+        points.y3 = coords.y;
+        plane.triangle(
+          points.x1,
+          points.y1,
+          points.x2,
+          points.y2,
+          points.x3,
+          points.y3,
+          inputC.value,
+          false
+        );
+        points = {};
+        plane.savePlane();
+      }
+      break;
+    default:
+      alert("no tool selected");
+      break;
   }
-  closeModal1()
-})
+});
 
-const resizeBtn = document.getElementById("resize")
-const resizeGenerate = document.getElementById("resizeGenerate")
-const resizeInput = document.getElementById("resizeInput")
-const resizeModal = document.getElementById("resizeModal")
+const resizeBtn = document.getElementById("resize");
+const resizeGenerate = document.getElementById("resizeGenerate");
+const resizeInput = document.getElementById("resizeInput");
+const resizeModal = document.getElementById("resizeModal");
 
-function closeModalResize(){
-    modalBackground.classList.toggle("hidden");
+function closeModalResize() {
   resizeModal.classList.toggle("hidden");
 }
 
-
-resizeBtn.addEventListener("click", ()=>{
-    console.log("hello")
-    resizeModal.classList.toggle("hidden")
-})
+resizeBtn.addEventListener("click", () => {
+  resizeModal.classList.toggle("hidden");
+});
 
 resizeGenerate.addEventListener("click", () => {
-    closeModalResize()
-})
+  plane.resize(resizeInput.value);
+  closeModalResize();
+});
+
+const modalBtns = document.querySelectorAll(".modalBtn");
+
+modalBtns.forEach((element) => {
+  element.addEventListener("click", () => {
+    switch (element.id) {
+      case "draw":
+        currentTool = "draw";
+        break;
+      case "line":
+        currentTool = "line";
+        break;
+      case "fill":
+        currentTool = "fill";
+        break;
+      case "circle":
+        currentTool = "circle";
+        break;
+
+      case "square":
+        currentTool = "square";
+        break;
+
+      case "triangle":
+        currentTool = "triangle";
+        break;
+      case "text":
+        currentTool = "text";
+        break;
+
+      default:
+        break;
+    }
+  });
+});
+
+const undo = document.getElementById("undo");
+
+undo.addEventListener("click", () => {
+  plane.undo();
+});
+
+const redo = document.getElementById("redo");
+
+redo.addEventListener("click", () => {
+  plane.redo();
+});
