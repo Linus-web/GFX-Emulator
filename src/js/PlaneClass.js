@@ -240,6 +240,8 @@ export class Plane {
         delete this.saves[i];
       }
     }
+    console.log(this.saves);
+    console.log(this.saveState);
   }
 
   undo() {

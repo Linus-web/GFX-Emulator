@@ -431,5 +431,6 @@ textGenerate.addEventListener("click", () => {
     textInputy.value = "";
     textTextInput.value = "";
     textModal.classList.toggle("hidden");
+    plane.savePlane()
   } else alert("Missing or Faulty Inputs");
 });
