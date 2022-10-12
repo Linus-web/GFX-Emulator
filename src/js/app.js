@@ -22,15 +22,17 @@ function display(planex, canvasCtx) {
   }
 }
 
+
+
+
 function reScale(canvas, planex) {
   pixelWidth = canvas.offsetHeight / planex.width;
   canvas.width = canvas.offsetHeight;
   canvas.height = canvas.offsetHeight;
 }
 
-plane.rectangle(20,20,30,30,inputC.value,true,90,true)
 
-
+plane.textOut(20,20,inputC.value,"Dan is best")
 setInterval(() => {
   reScale(canvas, plane);
   display(plane, ctx);

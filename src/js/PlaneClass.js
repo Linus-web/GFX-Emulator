@@ -1,8 +1,9 @@
 import { BITMAP } from "./BITMAP.js";
+
 export class Plane {
   constructor() {
-
-    this.width = 40;
+    this.bitmapBlit= new BITMAP();
+    this.width = 100;
 
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
@@ -289,7 +290,52 @@ export class Plane {
 
     }     
 
-}
 
 
 }
+
+textOut(x,y,color,text){
+ let verticalLineCount = 0;
+let textbitmap = this.bitmapBlit.getCharacterChar(text)
+console.log(textbitmap)
+for (let i = 0; i < textbitmap.length/56; i++) {
+
+  // for (let k = 0; k <7; k++) {
+  //   verticalLineCount++;
+  // for (let j = 0; j < 8; j++) {
+  //   if (textbitmap[verticalLineCount+j*this.width]==1) {
+  //     this.plane[verticalLineCount+j*this.width] = color    
+      
+  //   }
+  // }    
+  // }
+  for (let k = 0; k < textbitmap.length/56; k++) {
+    for (let j = 0; j < 8; j++) {
+      for (let i = 0; i < 7; i++) {
+        if(textbitmap[i+j*7 + k*56]==1)
+        this.plane[i+j*this.width + 7*k + x + y*this.width] = color 
+           
+    }
+    }
+  }
+  
+  
+}
+
+
+
+
+
+
+// for (let i = 0; i < 7; i++) { 
+//   for (let y = 0; y < textbitmap.length; y++) {
+//     if (textbitmap[y]==1) {
+//       this.plane[y+i*this.width] = color
+//   }
+// }
+// }  
+// console.log(this.plane)
+ }
+
+}
+
