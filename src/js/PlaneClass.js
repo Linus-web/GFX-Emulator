@@ -112,7 +112,7 @@ export class Plane {
 
   clear() {
     for (let i = 0; i < this.plane.length; i++) {
-      this.plane[i] = "#ffffff";
+      this.plane[i] = undefined ;
     }
   }
   resize(size) {
