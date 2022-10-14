@@ -5,7 +5,6 @@ let pixelWidth;
 let plane = new Plane();
 let copyPlane = new BITMAP(100);
 
-
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const inputC = document.getElementById("inputC");
@@ -32,17 +31,11 @@ function reScale(canvas, planex) {
   canvas.height = canvas.offsetHeight;
 }
 
-
-
-plane.textOut(0,0,inputC.value,"Hi")
-console.log(copyPlane.bitplane)
-console.log(plane.blit(plane,copyPlane,0,1,14,8,10,10,true))
-console.log(copyPlane.bitplane)
-console.log(plane.blit(plane,copyPlane,20,20,14,8,10,10))
-
-
-
-
+plane.textOut(0, 0, inputC.value, "Hi");
+console.log(copyPlane.bitplane);
+console.log(plane.blit(plane, copyPlane, 0, 1, 14, 8, 10, 10, true));
+console.log(copyPlane.bitplane);
+console.log(plane.blit(plane, copyPlane, 20, 20, 14, 8, 10, 10));
 
 setInterval(() => {
   reScale(canvas, plane);
@@ -363,7 +356,7 @@ const resizeBtn = document.getElementById("resize");
 const resizeGenerate = document.getElementById("resizeGenerate");
 const resizeInput = document.getElementById("resizeInput");
 const resizeModal = document.getElementById("resizeModal");
-const closeResizeModal = document.getElementById("closeResize")
+const closeResizeModal = document.getElementById("closeResize");
 
 function closeModalResize() {
   resizeModal.classList.toggle("hidden");
@@ -378,11 +371,9 @@ resizeGenerate.addEventListener("click", () => {
   closeModalResize();
 });
 
-closeResizeModal.addEventListener('click', () => {
-
-  closeModalResize()
-
-})
+closeResizeModal.addEventListener("click", () => {
+  closeModalResize();
+});
 
 const modalBtns = document.querySelectorAll(".modalBtn");
 
@@ -434,7 +425,7 @@ const textInputx = document.getElementById("textInputX");
 const textInputy = document.getElementById("textInputY");
 const textTextInput = document.getElementById("textTextInput");
 const textGenerate = document.getElementById("textGenerate");
-const closeTextModal = document.getElementById("closeText")
+const closeTextModal = document.getElementById("closeText");
 
 textBtn.addEventListener("click", () => {
   textModal.classList.toggle("hidden");
@@ -454,13 +445,15 @@ textGenerate.addEventListener("click", () => {
     textInputy.value = "";
     textTextInput.value = "";
     textModal.classList.toggle("hidden");
-    plane.savePlane()
+    plane.savePlane();
   } else alert("Missing or Faulty Inputs");
 });
 
-closeTextModal.addEventListener("click", () =>{
+closeTextModal.addEventListener("click", () => {
+  textModal.classList.toggle("hidden");
+});
 
-  textModal.classList.toggle("hidden")
+////////////////////////////////PARSER/////////////////////////////////////////
 
-
-})
+const parserInput = document.getElementById("parserInput");
+const parserBtn = documment.getElementById("parserBtn")
