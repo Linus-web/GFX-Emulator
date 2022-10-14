@@ -7,7 +7,7 @@ export class Plane {
     this.bitmapBlit= new BITMAP(2,2);
     this.width = 50;
 
-    
+
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
     this.lock = true;
@@ -113,7 +113,7 @@ export class Plane {
 
   clear() {
     for (let i = 0; i < this.plane.length; i++) {
-      this.plane[i] = "#ffffff";
+      this.plane[i] = undefined;
     }
   }
   resize(size) {
@@ -121,6 +121,7 @@ export class Plane {
     this.height = size;
     this.plane = new Array(this.width * this.height);
   }
+
 
 
   scrollLeft() {
@@ -244,6 +245,8 @@ export class Plane {
         delete this.saves[i];
       }
     }
+    console.log(this.saves);
+    console.log(this.saveState);
   }
 
   undo() {
@@ -369,10 +372,35 @@ for (let i = 0; i < textbitmap.length/56; i++) {
 
   } 
 
+  }
 
+  textOut(x, y, color, text) {
+    let verticalLineCount = 0;
+    let textbitmap = this.bitmapBlit.getCharacterChar(text);
+    for (let i = 0; i < textbitmap.length / 56; i++) {
+      // for (let k = 0; k <7; k++) {
+      //   verticalLineCount++;
+      // for (let j = 0; j < 8; j++) {
+      //   if (textbitmap[verticalLineCount+j*this.width]==1) {
+      //     this.plane[verticalLineCount+j*this.width] = color
 
+      //   }
+      // }
+      // }
+      for (let k = 0; k < textbitmap.length / 56; k++) {
+        for (let j = 0; j < 8; j++) {
+          for (let i = 0; i < 7; i++) {
+            if (textbitmap[i + j * 7 + k * 56] == 1)
+              this.plane[i + j * this.width + 7 * k + x + y * this.width] =
+                color;
+          }
+        }
+      }
+    }
+  }
 }
 
 
 
 }
+
