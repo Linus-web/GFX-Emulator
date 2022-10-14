@@ -3,6 +3,9 @@ import { Plane } from "./PlaneClass.js";
 
 let pixelWidth;
 let plane = new Plane();
+let copyPlane = new BITMAP(100);
+
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const inputC = document.getElementById("inputC");
@@ -33,7 +36,16 @@ function reScale(canvas, planex) {
 }
 
 
-plane.textOut(20,20,inputC.value,"Dan is best")
+
+plane.textOut(0,0,inputC.value,"Hi")
+console.log(copyPlane.bitplane)
+console.log(plane.blit(plane,copyPlane,0,1,14,8,10,10,true))
+console.log(copyPlane.bitplane)
+console.log(plane.blit(plane,copyPlane,20,20,14,8,10,10))
+
+
+
+
 
 setInterval(() => {
   reScale(canvas, plane);

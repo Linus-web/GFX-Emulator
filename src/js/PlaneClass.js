@@ -1,10 +1,11 @@
+//import { createLogicalAnd } from "typescript";
 import { BITMAP } from "./BITMAP.js";
 
 export class Plane {
   constructor() {
  
-    this.bitmapBlit= new BITMAP();
-    this.width = 100;
+    this.bitmapBlit= new BITMAP(2,2);
+    this.width = 50;
 
     
     this.height = this.width;
@@ -121,7 +122,6 @@ export class Plane {
     this.plane = new Array(this.width * this.height);
   }
 
-  textOut(x, y, color, txt) {}
 
   scrollLeft() {
     for (let y = 0; y < this.height; y++) {
@@ -238,10 +238,7 @@ export class Plane {
     let arr = this.plane.slice();
     this.saveState++;
     this.saves[this.saveState] = arr;
-    console.log(Object.keys(this.saves).length);
-    console.log(this.saves);
     if (Object.keys(this.saves).length > this.saveState) {
-      console.log("deleted saves after current");
       let length = Object.keys(this.saves).length;
       for (let i = this.saveState + 1; i <= length; i++) {
         delete this.saves[i];
@@ -259,7 +256,6 @@ export class Plane {
   }
 
   redo() {
-    console.log("redo");
     if (this.saveState < Object.keys(this.saves).length) {
       this.saveState++;
       this.plane = this.saves[this.saveState];
@@ -289,7 +285,7 @@ export class Plane {
       x < 0 ||
       y < 0 ||
       x > this.width ||
-      y >= this.plane.length ||
+      y > this.height ||
       this.plane[x + y * this.width] == newColor
     ) {
       return;
@@ -319,7 +315,6 @@ export class Plane {
 textOut(x,y,color,text){
  let verticalLineCount = 0;
 let textbitmap = this.bitmapBlit.getCharacterChar(text)
-console.log(textbitmap)
 for (let i = 0; i < textbitmap.length/56; i++) {
 
   // for (let k = 0; k <7; k++) {
@@ -344,21 +339,40 @@ for (let i = 0; i < textbitmap.length/56; i++) {
   
 }
 
-
-
-
-
-
-// for (let i = 0; i < 7; i++) { 
-//   for (let y = 0; y < textbitmap.length; y++) {
-//     if (textbitmap[y]==1) {
-//       this.plane[y+i*this.width] = color
-//   }
-// }
-// }  
-// console.log(this.plane)
  }
+
+ blit(src, dst,sx,sy,w,h,dSx,dSy,copyToPlane) {
+   if (copyToPlane==true) {
+    let destArr = new Array(w*h)
+    let copyArr = src.plane.slice()
+    for (let y = 0; y < h-1; y++) { 
+    for (let i = 0; i < w; i++) {
+
+      dst.bitplane[dSy*dst.width+dSx+i+y*w] = copyArr[(sx+(sy*src.width))+i+y*src.width]
+      
+    }
+  }
+
+   }
+   else{
+    let destArr = new Array(w*h)
+    let copyArr = dst.bitplane.slice()
+    for (let y = 0; y < h-1; y++) { 
+    for (let i = 0; i < w; i++) {
+      src.plane[(sx+(sy*src.width))+i+y*src.width] = copyArr[dSy*dst.width+dSx+i+y*w]
+      
+                                          
+    }
+
+   }
+   console.log(src)
+
+  } 
+
 
 
 }
 
+
+
+}
