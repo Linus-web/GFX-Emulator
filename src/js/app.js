@@ -363,6 +363,7 @@ const resizeBtn = document.getElementById("resize");
 const resizeGenerate = document.getElementById("resizeGenerate");
 const resizeInput = document.getElementById("resizeInput");
 const resizeModal = document.getElementById("resizeModal");
+const closeResizeModal = document.getElementById("closeResize")
 
 function closeModalResize() {
   resizeModal.classList.toggle("hidden");
@@ -376,6 +377,12 @@ resizeGenerate.addEventListener("click", () => {
   plane.resize(resizeInput.value);
   closeModalResize();
 });
+
+closeResizeModal.addEventListener('click', () => {
+
+  closeModalResize()
+
+})
 
 const modalBtns = document.querySelectorAll(".modalBtn");
 
@@ -427,6 +434,7 @@ const textInputx = document.getElementById("textInputX");
 const textInputy = document.getElementById("textInputY");
 const textTextInput = document.getElementById("textTextInput");
 const textGenerate = document.getElementById("textGenerate");
+const closeTextModal = document.getElementById("closeText")
 
 textBtn.addEventListener("click", () => {
   textModal.classList.toggle("hidden");
@@ -449,3 +457,10 @@ textGenerate.addEventListener("click", () => {
     plane.savePlane()
   } else alert("Missing or Faulty Inputs");
 });
+
+closeTextModal.addEventListener("click", () =>{
+
+  textModal.classList.toggle("hidden")
+
+
+})
