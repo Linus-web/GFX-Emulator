@@ -402,5 +402,5 @@ for (let i = 0; i < textbitmap.length/56; i++) {
 
 
 
-}
+
 
