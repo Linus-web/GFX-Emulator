@@ -3,6 +3,7 @@ import { Plane } from "./PlaneClass.js";
 
 let pixelWidth;
 let plane = new Plane();
+let savePlaneArrForDemo = [];
 let copyPlane = new BITMAP(100);
 
 const canvas = document.getElementById("canvas");
@@ -10,19 +11,45 @@ const ctx = canvas.getContext("2d");
 const inputC = document.getElementById("inputC");
 
 plane.savePlane();
-
-function display(planex, canvasCtx) {
-  for (let i = 0; i < planex.plane.length; i++) {
-    if (planex.plane[i] != undefined) {
-      canvasCtx.fillStyle = planex.plane[i];
-      canvasCtx.fillRect(
-        (i % planex.width) * pixelWidth,
-        Math.floor(i / planex.width) * pixelWidth,
+let showDemo = true;
+function display() {
+  for (let i = 0; i < plane.plane.length; i++) {
+    if (plane.plane[i] != undefined) {
+      ctx.fillStyle = plane.plane[i];
+      ctx.fillRect(
+        (i % plane.width) * pixelWidth,
+        Math.floor(i / plane.width) * pixelWidth,
         pixelWidth,
         pixelWidth
       );
     }
   }
+  // if(showDemo){
+  //   for (let i = 0; i < demoPlane.plane.length; i++) {
+  //     if (demoPlane.plane[i] != undefined) {
+  //       ctx.fillStyle = demoPlane.plane[i];
+  //       ctx.fillRect(
+  //         (i % demoPlane.width) * pixelWidth,
+  //         Math.floor(i / demoPlane.width) * pixelWidth,
+  //         pixelWidth,
+  //         pixelWidth
+  //         );
+  //       }
+  //     }
+  // }
+  // if(!showDemo){
+  //   for (let i = 0; i < plane.plane.length; i++) {
+  //     if (plane.plane[i] != undefined) {
+  //       ctx.fillStyle = plane.plane[i];
+  //       ctx.fillRect(
+  //         (i % plane.width) * pixelWidth,
+  //         Math.floor(i / plane.width) * pixelWidth,
+  //         pixelWidth,
+  //         pixelWidth
+  //         );
+  //       }
+  //     }
+  //   }
 }
 
 function reScale(canvas, planex) {
@@ -31,15 +58,9 @@ function reScale(canvas, planex) {
   canvas.height = canvas.offsetHeight;
 }
 
-plane.textOut(0, 0, inputC.value, "Hi");
-console.log(copyPlane.bitplane);
-console.log(plane.blit(plane, copyPlane, 0, 1, 14, 8, 10, 10, true));
-console.log(copyPlane.bitplane);
-console.log(plane.blit(plane, copyPlane, 20, 20, 14, 8, 10, 10));
-
 setInterval(() => {
   reScale(canvas, plane);
-  display(plane, ctx);
+  display();
   cHeight.innerText = "px: " + plane.height;
   cWidth.innerText = "px: " + plane.width;
 }, 50);
@@ -392,11 +413,9 @@ modalBtns.forEach((element) => {
       case "circle":
         currentTool = "circle";
         break;
-
       case "square":
         currentTool = "square";
         break;
-
       case "triangle":
         currentTool = "triangle";
         break;
@@ -456,4 +475,115 @@ closeTextModal.addEventListener("click", () => {
 ////////////////////////////////PARSER/////////////////////////////////////////
 
 const parserInput = document.getElementById("parserInput");
-const parserBtn = documment.getElementById("parserBtn")
+const parserBtn = document.getElementById("parserBtn");
+
+/////////////////////////////DEMO///////////////////////////////////////////////
+
+function getRandomColor() {
+  let r = Math.floor(Math.random() * 254);
+  let g = Math.floor(Math.random() * 254);
+  let b = Math.floor(Math.random() * 254);
+  let hex = rgbToHex(r, g, b);
+  return hex;
+}
+
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function placeRandomCricle() {
+  let randomX = Math.floor(Math.random() * plane.width);
+  let randomY = Math.floor(Math.random() * plane.height);
+  let randomSize = Math.round(Math.random() * 5 + 5);
+  let randomColor = getRandomColor();
+  plane.circle(randomX, randomY, randomSize, randomColor, 360, true);
+}
+
+function scrollDownLeft() {
+  plane.scrollDown();
+  plane.scrollLeft();
+  plane.pScrollDown();
+  plane.pScrollLeft();
+}
+function scrollDownLeftD() {
+  plane.scrollLeft();
+}
+
+let demoi = 0;
+let demoy = 0;
+let demox = 0;
+
+setInterval(
+  () => {
+    demoInterval();
+  },
+
+  60
+);
+
+function demoInterval() {
+  if (showDemo) {
+    demoi++;
+
+    if (demoi < 100) {
+      placeRandomCricle();
+      placeRandomCricle();
+      placeRandomCricle();
+    } else if (demoi < 200) scrollDownLeft();
+    else if (demoi < 200 + plane.width) {
+      scrollDownLeftD();
+      scrollDownLeftD();
+    } else if (demoi < 200 + plane.width / 2 + 1) plane.clear();
+    else if (demoi < 350) {
+      plane.clear();
+      plane.fillFunc(plane.height / 2, plane.width / 2, "#000000");
+      plane.textOut(7, plane.height / 2 - 5, getRandomColor(), "GFX Emulator");
+    } else if (demoi < 400 + plane.height) {
+      plane.textOut(7, plane.height / 2 - 5, getRandomColor(), "GFX Emulator");
+      plane.pScrollUp();
+      plane.pScrollRight();
+    } else if (demoi < 400 + plane.height * 2) {
+      plane.scrollRight();
+    } else if (demoi < 700) {
+      demoy += 5;
+      demox += 0.3;
+      plane.rectangle(
+        0 + Math.floor(demox),
+        0 + Math.floor(demox),
+        plane.width - Math.floor(demox),
+        plane.width - Math.floor(demox),
+        getRandomColor(),
+        true,
+        demoy,
+        true
+      );
+    } else {
+      demoy = 0;
+      demox = 0;
+      demoi = 0;
+    }
+  }
+}
+
+let demoTimerInterval;
+document.addEventListener("click", () => {
+  if (showDemo) {
+    showDemo = false;
+    plane.clear();
+    plane.plane = plane.saves[plane.saveState];
+  }
+  clearInterval(demoTimerInterval);
+  let demoI = 0;
+  demoTimerInterval = setInterval(() => {
+    demoI++;
+    if (demoI > 60) {
+      demoI = 0;
+      showDemo = true;
+    }
+  }, 100);
+});

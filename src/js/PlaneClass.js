@@ -4,7 +4,7 @@ import { BITMAP } from "./BITMAP.js";
 export class Plane {
   constructor() {
     this.bitmapBlit = new BITMAP(2, 2);
-    this.width = 50;
+    this.width = 100;
     this.height = this.width;
     this.plane = new Array(this.height * this.width);
     this.lock = true;
@@ -240,8 +240,6 @@ export class Plane {
         delete this.saves[i];
       }
     }
-    console.log(this.saves);
-    console.log(this.saveState);
   }
 
   undo() {
@@ -345,7 +343,6 @@ export class Plane {
             copyArr[dSy * dst.width + dSx + i + y * w];
         }
       }
-      console.log(src);
     }
   }
 
