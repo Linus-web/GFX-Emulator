@@ -474,8 +474,20 @@ closeTextModal.addEventListener("click", () => {
 
 ////////////////////////////////PARSER/////////////////////////////////////////
 
+
 const parserInput = document.getElementById("parserInput");
-const parserBtn = document.getElementById("parserBtn");
+const parserBtn = document.getElementById("parserBtn")
+
+parserBtn.addEventListener('click', () => {
+  if (parserInput.value !== null) {
+    plane.textsplicer(parserInput.value)
+  }
+  else(
+    alert("Empy parser input")
+  )
+
+})
+
 
 /////////////////////////////DEMO///////////////////////////////////////////////
 
@@ -579,7 +591,7 @@ document.addEventListener("click", () => {
   }
   clearInterval(demoTimerInterval);
   let demoI = 0;
-  demoTimerInterval = setInterval(() => {
+  demoTimerInterval = setInterval(() => {  
     demoI++;
     if (demoI > 60) {
       demoI = 0;
@@ -587,3 +599,4 @@ document.addEventListener("click", () => {
     }
   }, 100);
 });
+

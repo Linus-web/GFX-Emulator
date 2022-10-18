@@ -10,6 +10,7 @@ export class Plane {
     this.lock = true;
     this.saveState = 0;
     this.saves = {};
+    this.delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms))
   }
   putPixel(x, y, color) {
     this.plane[x + y * this.width] = color;
@@ -53,7 +54,7 @@ export class Plane {
       this.line(x1, y1, x2, y2, color);
     }
 
-    if (fill == true) {
+    if (fill == true || fill == "true") {
       this.fillFunc(x, y, color);
 
       // for (let k = 0; k < r; k++) {
@@ -101,7 +102,7 @@ export class Plane {
       this.line(x2, y2, x1, y2, color);
       this.line(x1, y2, x1, y1, color);
     }
-    if (fill == true) {
+    if (fill == true || fill == "true") {
       let xCenter = Math.ceil((x1 + x2) / 2);
       let yCenter = Math.ceil((y1 + y2) / 2);
       this.fillFunc(xCenter, yCenter, color);
@@ -223,7 +224,7 @@ export class Plane {
 
     let totalarea = Math.abs(Math.ceil((area1 + area2 + area3) / 2));
 
-    if (fill == true) {
+    if (fill == true || fill == "true") {
       let xCenter = Math.ceil((x1 + x2 + x3) / 3);
       let yCenter = Math.ceil((y1 + y2 + y3) / 3);
       this.fillFunc(xCenter, yCenter, color, counter);
@@ -370,4 +371,100 @@ export class Plane {
       }
     }
   }
+
+  ///////////////////////////////PARSER
+  replaceRange(s, start, end, substitute) {
+    return s.substring(0, start) + substitute + s.substring(end);
+  }
+  
+   async textsplicer(command){
+      let text = command;
+      let count = 0;
+      for (let i = 0; i < text.length; i++) {
+        if (text[i]==",") {
+          count++;
+          
+        }
+        
+      }
+     
+  
+      for (let k = -1; k < count;k++) {
+  
+        if (text.includes(",")) {
+          let x = text.indexOf(",")
+          let inputText = text.slice(0,x)
+            this.interpreter(inputText)
+  
+  
+          text = this.replaceRange(text,0,x+1,"")
+       
+  
+        }
+        else{
+          this.interpreter(text)
+        }
+        
+        await this.delay(2000)
+        
+      }
+  
+    }
+  
+  
+     interpreter(text) {
+      let newText = text.toLowerCase();//removes stupid stuff
+      let truetext = newText.replace(",","")
+      const interpretationArray = truetext.split(" ");
+  
+      var valuesArray=[];
+      for (let i = 1; i < interpretationArray.length; i++) {
+        if (isNaN(interpretationArray[i]) == true) {
+          
+        }
+        else{
+          valuesArray.push(parseInt(interpretationArray[i]))
+  
+        }
+  
+  
+      }
+      console.log(interpretationArray)
+      console.log(valuesArray)
+  
+  
+  
+      if (interpretationArray.indexOf("drawcircle") > -1) {
+        let x = interpretationArray[6]
+        this.circle(valuesArray[0],valuesArray[1],valuesArray[2],interpretationArray[4],valuesArray[3],x)
+       
+      }
+  
+      else if (interpretationArray.indexOf("drawline") > -1) {
+  
+        this.line(valuesArray[0],valuesArray[1],valuesArray[2],valuesArray[3],interpretationArray[5])
+        
+      }
+      else if (interpretationArray.indexOf("drawrectangle") > -1) {
+        console.log(interpretationArray)
+        let y = interpretationArray[6]
+        console.log(y)
+      
+        this.rectangle(valuesArray[0], valuesArray[1],valuesArray[2],valuesArray[3],interpretationArray[5],interpretationArray[6],valuesArray[4],interpretationArray[8])
+        
+      }
+      else if (interpretationArray.indexOf("drawtriangle") > -1) {
+        console.log(interpretationArray)
+        this.triangle(valuesArray[0],valuesArray[1],valuesArray[2],valuesArray[3],valuesArray[4],valuesArray[5],interpretationArray[7],interpretationArray[8]);
+        
+      }
+      else if (interpretationArray.indexOf("fill") > -1) {
+        this.fillFunc(valuesArray[0],valuesArray[1],interpretationArray[2]);
+        
+      }
+      else if (interpretationArray.indexOf("clear") > -1) {
+        this.clear();
+        
+      }
+    }
 }
