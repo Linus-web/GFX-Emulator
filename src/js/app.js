@@ -58,6 +58,15 @@ function reScale(canvas, planex) {
   canvas.height = canvas.offsetHeight;
 }
 
+
+plane.textOut(0, 0, inputC.value, "Hi");
+// plane.textsplicer("drawtriangle 20 20 0 40 40 40 #000000 true,drawline 0 0 50 50 #FF0000,drawline 0 20 50 50 #FF0000");
+// plane.line(x1,y2,x2,y2,#FF0000)
+// console.log(copyPlane.bitplane);
+// console.log(plane.blit(plane, copyPlane, 0, 1, 14, 8, 10, 10, true));
+// console.log(copyPlane.bitplane);
+// console.log(plane.blit(plane, copyPlane, 20, 20, 14, 8, 10, 10));
+
 setInterval(() => {
   reScale(canvas, plane);
   display();
@@ -591,7 +600,9 @@ document.addEventListener("click", () => {
   }
   clearInterval(demoTimerInterval);
   let demoI = 0;
+
   demoTimerInterval = setInterval(() => {  
+
     demoI++;
     if (demoI > 60) {
       demoI = 0;
@@ -599,4 +610,6 @@ document.addEventListener("click", () => {
     }
   }, 100);
 });
+
+
 

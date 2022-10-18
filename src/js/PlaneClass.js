@@ -1,6 +1,7 @@
 //import { createLogicalAnd } from "typescript";
 import { BITMAP } from "./BITMAP.js";
 
+
 export class Plane {
   constructor() {
     this.bitmapBlit = new BITMAP(2, 2);
@@ -11,6 +12,7 @@ export class Plane {
     this.saveState = 0;
     this.saves = {};
     this.delay = async (ms = 1000) => new Promise(resolve => setTimeout(resolve, ms))
+
   }
   putPixel(x, y, color) {
     this.plane[x + y * this.width] = color;
@@ -46,15 +48,16 @@ export class Plane {
     //point of change is 2pi/accuracy
     let pointofchange = (2 * 3.141592) / accuracy;
     for (let i = 0; i < accuracy; i++) {
-      let x1 = Math.ceil(x + r * Math.sin(pointofchange * i));
-      let y1 = Math.ceil(y + r * Math.cos(pointofchange * i));
-      let x2 = Math.ceil(x + r * Math.sin(pointofchange * (i + 1)));
-      let y2 = Math.ceil(y + r * Math.cos(pointofchange * (i + 1)));
+      let x1 = Math.round(x + r * Math.sin(pointofchange * i));
+      let y1 = Math.round(y + r * Math.cos(pointofchange * i));
+      let x2 = Math.round(x + r * Math.sin(pointofchange * (i + 1)));
+      let y2 = Math.round(y + r * Math.cos(pointofchange * (i + 1)));
       // this.putPixel(x1,y1,color)
       this.line(x1, y1, x2, y2, color);
     }
 
     if (fill == true || fill == "true") {
+
       this.fillFunc(x, y, color);
 
       // for (let k = 0; k < r; k++) {
@@ -81,17 +84,17 @@ export class Plane {
     let xlength = Math.abs(x2 - x1);
     let r = Math.ceil(Math.sqrt(xlength ** 2 + ylength ** 2));
 
-    if (rotate == true) {
+    if (rotate == true || rotate == "true") {
       let pointofchange = (2 * 3.141592) / 4;
 
       for (let i = 0; i < 4; i++) {
-        let x1 = Math.ceil(xCenter + r * Math.sin(pointofchange * i + Offset));
-        let y1 = Math.ceil(yCenter + r * Math.cos(pointofchange * i + Offset));
+        let x1 = Math.ceil(xCenter + (r/2) * Math.sin(pointofchange * i + Offset));
+        let y1 = Math.ceil(yCenter + (r/2) * Math.cos(pointofchange * i + Offset));
         let x2 = Math.ceil(
-          xCenter + r * Math.sin(pointofchange * (i + 1) + Offset)
+          xCenter + (r/2) * Math.sin(pointofchange * (i + 1) + Offset)
         );
         let y2 = Math.ceil(
-          yCenter + r * Math.cos(pointofchange * (i + 1) + Offset)
+          yCenter + (r/2) * Math.cos(pointofchange * (i + 1) + Offset)
         );
         // this.putPixel(x1,y1,color)
         this.line(x1, y1, x2, y2, color);
@@ -293,39 +296,13 @@ export class Plane {
     // }
     else {
       this.putPixel(x, y, newColor);
-      this.fillFunc(x + 1, y, newColor);
-      this.fillFunc(x - 1, y, newColor);
-      this.fillFunc(x, y - 1, newColor);
-      this.fillFunc(x, y + 1, newColor);
+     setInterval( this.fillFunc(x + 1, y, newColor),500)
+     setInterval(this.fillFunc(x - 1, y, newColor),500)
+     setInterval( this.fillFunc(x, y - 1, newColor),500)
+     setInterval( this.fillFunc(x, y + 1, newColor),500)
     }
   }
-
-  textOut(x, y, color, text) {
-    let verticalLineCount = 0;
-    let textbitmap = this.bitmapBlit.getCharacterChar(text);
-    for (let i = 0; i < textbitmap.length / 56; i++) {
-      // for (let k = 0; k <7; k++) {
-      //   verticalLineCount++;
-      // for (let j = 0; j < 8; j++) {
-      //   if (textbitmap[verticalLineCount+j*this.width]==1) {
-      //     this.plane[verticalLineCount+j*this.width] = color
-
-      //   }
-      // }
-      // }
-      for (let k = 0; k < textbitmap.length / 56; k++) {
-        for (let j = 0; j < 8; j++) {
-          for (let i = 0; i < 7; i++) {
-            if (textbitmap[i + j * 7 + k * 56] == 1)
-              this.plane[i + j * this.width + 7 * k + x + y * this.width] =
-                color;
-          }
-        }
-      }
-    }
-  }
-
-  blit(src, dst, sx, sy, w, h, dSx, dSy, copyToPlane) {
+ blit(src, dst, sx, sy, w, h, dSx, dSy, copyToPlane) {
     if (copyToPlane == true) {
       let destArr = new Array(w * h);
       let copyArr = src.plane.slice();
@@ -371,6 +348,7 @@ export class Plane {
       }
     }
   }
+
 
   ///////////////////////////////PARSER
   replaceRange(s, start, end, substitute) {
@@ -467,4 +445,5 @@ export class Plane {
         
       }
     }
+
 }
