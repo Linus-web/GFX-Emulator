@@ -436,30 +436,57 @@ export class Plane {
   
       if (interpretationArray.indexOf("drawcircle") > -1) {
         let x = interpretationArray[6]
-        this.circle(valuesArray[0],valuesArray[1],valuesArray[2],interpretationArray[4],valuesArray[3],x)
+        if (valuesArray[0] && valuesArray[1],valuesArray[2],valuesArray[3]) {
+          this.circle(valuesArray[0],valuesArray[1],valuesArray[2],interpretationArray[4],valuesArray[3],x)
+
+        }
+        else{
+          alert("syntax error")
+        }
        
       }
   
       else if (interpretationArray.indexOf("drawline") > -1) {
-  
-        this.line(valuesArray[0],valuesArray[1],valuesArray[2],valuesArray[3],interpretationArray[5])
+        if (valuesArray[0],valuesArray[1],valuesArray[2],valuesArray[3]) {
+          this.line(valuesArray[0],valuesArray[1],valuesArray[2],valuesArray[3],interpretationArray[5])
+        }
+        else{
+          alert("syntax error")
+
+        }
+      
         
       }
       else if (interpretationArray.indexOf("drawrectangle") > -1) {
-        console.log(interpretationArray)
         let y = interpretationArray[6]
-        console.log(y)
-      
+      if (valuesArray[0], valuesArray[1],valuesArray[2],valuesArray[3],valuesArray[4]) {
         this.rectangle(valuesArray[0], valuesArray[1],valuesArray[2],valuesArray[3],interpretationArray[5],interpretationArray[6],valuesArray[4],interpretationArray[8])
+
+      }
+      else{
+        alert("syntax error")
+      }
         
       }
       else if (interpretationArray.indexOf("drawtriangle") > -1) {
         console.log(interpretationArray)
-        this.triangle(valuesArray[0],valuesArray[1],valuesArray[2],valuesArray[3],valuesArray[4],valuesArray[5],interpretationArray[7],interpretationArray[8]);
+        if (valuesArray[0],valuesArray[1],valuesArray[2],valuesArray[3],valuesArray[4],valuesArray[5]) {
+          this.triangle(valuesArray[0],valuesArray[1],valuesArray[2],valuesArray[3],valuesArray[4],valuesArray[5],interpretationArray[7],interpretationArray[8]);  
+        }
+        else{
+          alert("syntax error")
+
+        }
+        
         
       }
       else if (interpretationArray.indexOf("fill") > -1) {
-        this.fillFunc(valuesArray[0],valuesArray[1],interpretationArray[2]);
+        if (valuesArray[0],valuesArray[1]) {
+          this.fillFunc(valuesArray[0],valuesArray[1],interpretationArray[2]);
+
+        } else {
+          alert("syntax error")
+        }
         
       }
       else if (interpretationArray.indexOf("clear") > -1) {
